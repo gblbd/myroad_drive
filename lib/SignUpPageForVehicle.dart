@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'SignUpForCar.dart';
+import 'vehicle_reg.dart';
 
 class SignUpPageForVehicle extends StatelessWidget {
   const SignUpPageForVehicle({Key? key}) : super(key: key);
