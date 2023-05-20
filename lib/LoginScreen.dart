@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:myroad_drive/home_page.dart';
 
 import 'CreateAccount.dart';
 
@@ -87,6 +88,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       overlayColor: MaterialStateProperty.all(Colors.transparent),
                     ),
                     onPressed: () async{
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return HomePage(SearchDestination: '',);
+                          },
+                        ),
+                      );
 
 
                     },
