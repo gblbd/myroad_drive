@@ -6,8 +6,13 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:myroad_drive/profile_page.dart';
+import 'package:myroad_drive/request_detail.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+import 'document_page.dart';
 
 class HomePage extends StatefulWidget {
   final String SearchDestination;
@@ -171,6 +176,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return
 
       Scaffold(
+        appBar: AppBar(
+          title: Text("Home"),
+        ),
         backgroundColor: Colors.white,
         body: Stack(
           children: [
@@ -178,6 +186,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               child: SafeArea(
                 child: Stack(
                   children: [
+
 
 
 
@@ -254,6 +263,145 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
         ),
 
+
+        drawer: Drawer(
+          child: ListView(
+            children: [
+
+               UserAccountsDrawerHeader(
+                accountName: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text("Name",
+                    style: GoogleFonts.openSans(
+                      fontSize: 21,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black
+                    ),
+
+                  ),
+                ),
+                accountEmail: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text("Email",
+                    style: GoogleFonts.openSans(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black
+                    ),
+
+
+                  ),
+                ),
+                currentAccountPicture: GestureDetector(
+                    child: InkWell(
+                      onTap: (){
+                        //getImage();
+                      },
+                      child: CircleAvatar(
+                        child: Icon(Icons.person),//img!=null?Image.file(img!,width:50,height: 50,):Icon(Icons.person,size: 50,),
+                        radius: 30,
+
+
+                      ),
+                    )
+
+                ),
+                decoration: new BoxDecoration(
+                    color: Colors.red.shade200
+                ),
+
+
+
+              ),
+
+              ListTile(
+                leading: Icon(Icons.manage_accounts_outlined,
+
+                  size: 30,
+
+                ),
+                title: Text("Profile"),
+                onTap: (){
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ProfilePage();
+                      },
+                    ),
+                  );
+
+                },
+              ),
+
+              ListTile(
+                leading: Icon(Icons.receipt_long),
+                title: Text("Documents"),
+
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return DocumentPage();
+                      },
+                    ),
+                  );
+                },
+
+              ),
+
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text("Settings"),
+              ),
+
+
+              Divider(
+                thickness: 1.5,
+                color: Colors.red.shade200,
+              ),
+
+              ListTile(
+                leading: Icon(Icons.share),
+                title: Text("Share this app"),
+              ),
+
+              ListTile(
+                leading: Icon(Icons.support_agent,
+
+                  size: 30,
+                ),
+                title: Text("Support"),
+              ),
+
+              ListTile(
+                leading: Icon(Icons.info_outline),
+                title: Text("About Us"),
+              ),
+
+
+              Divider(
+                thickness: 1.5,
+                color: Colors.red.shade200,
+              ),
+
+              ListTile(
+                leading: Icon(Icons.logout,
+
+                  size: 30,
+
+                ),
+                title: Text("Logout"),
+              ),
+
+
+
+            ],
+          ),
+        ),
+
       );
   }
   
@@ -298,7 +446,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                  panelController.close();
                }, icon: Icon(Icons.arrow_back)),
                  
-                 Text("Accept Requests")
+                 Text("Ride Requests",
+
+                   style: GoogleFonts.openSans(
+                     fontSize: 20,
+                     fontWeight: FontWeight.bold
+                   ),
+
+                 )
                ],
              ),
 
@@ -319,6 +474,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                        borderRadius: BorderRadius.circular(10)
                      ),
                      child: ListTile(
+                       onTap: (){
+                         Navigator.push(
+                           context,
+                           MaterialPageRoute(
+                             builder: (context) {
+                               return RequestDetail();
+                             },
+                           ),
+                         );
+                       },
                        title: Text("Name"),
                        subtitle: Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
