@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DocumentUploadPage extends StatefulWidget{
 
@@ -10,9 +11,9 @@ class DocumentUploadPage extends StatefulWidget{
 }
 
 class _DocumentUploadPageState extends State<DocumentUploadPage> {
-   List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+   List<String> list = <String>['Select Document name','Driving Licence', 'NID Front side', 'NID back side', 'Vehicle Registration Paper','Vehicle fitness Certificate','Vehicle tax Token'];
 
-   String dropdownValue = 'One';
+   String dropdownValue = 'Select Document name';
 
   @override
   Widget build(BuildContext context) {
@@ -24,28 +25,43 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
 
-          DropdownButton<String>(
-          value: dropdownValue,
-          icon: const Icon(Icons.arrow_downward),
-          elevation: 16,
-          style: const TextStyle(color: Colors.deepPurple),
-          underline: Container(
-            height: 2,
-            color: Colors.deepPurpleAccent,
-          ),
-          onChanged: (String? value) {
-            // This is called when the user selects an item.
-            setState(() {
-              dropdownValue = value!;
-            });
-          },
-          items: list.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                Text("Document Name : ",
+
+                  style: GoogleFonts.openSans(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold
+                  ),
+
+                ),
+                DropdownButton<String>(
+                value: dropdownValue,
+                icon: const Icon(Icons.arrow_downward),
+                elevation: 16,
+                style: const TextStyle(color: Colors.deepPurple),
+                underline: Container(
+                  height: 2,
+                  color: Colors.deepPurpleAccent,
+                ),
+                onChanged: (String? value) {
+                  // This is called when the user selects an item.
+                  setState(() {
+                    dropdownValue = value!;
+                  });
+                },
+                items: list.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
         ),
+              ],
+            ),
+          ),
 
 
 

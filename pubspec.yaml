@@ -51,6 +51,8 @@ dependencies:
   location: ^4.4.0
   geocoder2: ^1.4.0
   google_fonts: ^4.0.4
+  share_plus: ^7.0.1
+  webview_flutter: ^4.2.1
   provider: ^6.0.5
   flutter:
     sdk: flutter

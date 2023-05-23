@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
    <application
-        android:label="myroad_drive"
+        android:label= "myroad_drive"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

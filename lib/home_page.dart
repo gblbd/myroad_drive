@@ -8,9 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:myroad_drive/about_us.dart';
 import 'package:myroad_drive/profile_page.dart';
 import 'package:myroad_drive/request_detail.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
 
 import 'document_page.dart';
 
@@ -41,8 +44,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     target: LatLng(23.8103, 90.4125),
     zoom: 10,
   );
-
-
 
 
 
@@ -364,6 +365,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
 
               ListTile(
+
+                onTap: (){
+                  Share.share('check out our app https://play.google.com/store/apps/details?id=com.nalamgroup.driver');
+                },
                 leading: Icon(Icons.share),
                 title: Text("Share this app"),
               ),
@@ -377,6 +382,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
 
               ListTile(
+                onTap: (){
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return AboutUS();
+                      },
+                    ),
+                  );
+
+                },
                 leading: Icon(Icons.info_outline),
                 title: Text("About Us"),
               ),

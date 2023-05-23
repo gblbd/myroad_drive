@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myroad_drive/edit_profile.dart';
 import 'package:sizer/sizer.dart';
 
 class ProfilePage extends StatelessWidget{
@@ -14,7 +15,11 @@ class ProfilePage extends StatelessWidget{
         title: Text("Profile"),
       ),
       body: Container(
+
+
+
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               padding: EdgeInsets.symmetric(vertical: 30),
@@ -41,17 +46,111 @@ class ProfilePage extends StatelessWidget{
                   ),
 
                 ),
-                subtitle: Text("+8801XXXXXXXXX"),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("+8801XXXXXXXXX"),
+                    Row(
+                      children: [
+                        Icon(Icons.star,
+                          color: Colors.amberAccent.shade700,
+
+                        ),
+                        Text(" 4.6",
+
+                          style: GoogleFonts.openSans(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold
+                          ),
+
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
 
-            Text("Name : Example Name"),
+            // Text("Name : Example Name",
+            //
+            // ),
 
-            Text("Phone Number : +8801XXXXXXXXXXX"),
+            //Text("Phone Number : +8801XXXXXXXXXXX"),
 
-            Text("Driving Licence No. : XXXXXXXXXXXXX"),
+            SizedBox(height: 20,),
 
-            Text("Vehicle Registration No. XXXXXXXXXXXXXX"),
+
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Driving Licence No. : XXXXXXXXXXXXX",
+
+                    style: GoogleFonts.openSans(
+                        fontSize: 20
+                    ),
+
+                  ),
+                  SizedBox(height: 20,),
+                  Text("Vehicle Registration No. XXXXXXXXXXXXXX",
+
+                    style: GoogleFonts.openSans(
+                        fontSize: 20
+                    ),
+
+                  ),
+                  SizedBox(height: 20,),
+
+                  Text("Gender: Male",
+
+                    style: GoogleFonts.openSans(
+                        fontSize: 20
+                    ),
+
+                  ),
+                  SizedBox(height: 20,),
+
+
+                  Text("Language : English",
+
+                    style: GoogleFonts.openSans(
+                        fontSize: 20
+                    ),
+
+                  ),
+
+                  SizedBox(height: 20,),
+
+                  Divider(
+                    thickness: 1,
+                  ),
+
+                  ListTile(
+
+                    onTap: (){},
+                    title: Text("Change password",
+
+                      style: GoogleFonts.openSans(
+                          fontSize: 20
+                      ),
+
+                    ),
+                  ),
+
+                  Divider(
+                    thickness: 1,
+                  ),
+
+
+
+
+                ],
+              ),
+            )
+
+
+
 
 
 
@@ -75,13 +174,13 @@ class ProfilePage extends StatelessWidget{
 
           onPressed: (){
 
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) =>
-            //             FlightHistory()
-            //     )
-            // );
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        EditProfile()
+                )
+            );
 
           },
           label: Text("Edit"),
