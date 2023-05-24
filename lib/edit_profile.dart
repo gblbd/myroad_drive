@@ -25,9 +25,15 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+
+      appBar: AppBar(
+        title: Text("Edit Profile"),
+      ),
       body: Container(
         child: Column(
           children: [
+
+            SizedBox(height: 20,),
 
             Container(
               height: 70,width: 320,
@@ -54,6 +60,8 @@ class _EditProfileState extends State<EditProfile> {
               ),
             ),
 
+            SizedBox(height: 20,),
+
             Container(
               height: 70,width: 320,
               decoration: BoxDecoration(
@@ -78,6 +86,8 @@ class _EditProfileState extends State<EditProfile> {
                 ),
               ),
             ),
+
+            SizedBox(height: 20,),
 
             Container(
               height: 70,width: 320,
@@ -105,88 +115,134 @@ class _EditProfileState extends State<EditProfile> {
             ),
 
 
+            Divider(
+              thickness: 1,
+            ),
 
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                children: [
-                  Text("Language : ",
+            ListTile(
+              title: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Language : ",
 
-                    style: GoogleFonts.openSans(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold
+                      style: GoogleFonts.openSans(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+
                     ),
-
-                  ),
-                  DropdownButton<String>(
-                    value: dropdownValueLanguage,
-                    icon: const Icon(Icons.arrow_downward),
-                    elevation: 16,
-                    style: const TextStyle(color: Colors.deepPurple),
-                    underline: Container(
-                      height: 2,
-                      color: Colors.deepPurpleAccent,
+                    DropdownButton<String>(
+                      value: dropdownValueLanguage,
+                      icon: const Icon(Icons.arrow_drop_down),
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.deepPurple),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          dropdownValueLanguage = value!;
+                        });
+                      },
+                      items: listLanguage.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                     ),
-                    onChanged: (String? value) {
-                      // This is called when the user selects an item.
-                      setState(() {
-                        dropdownValueLanguage = value!;
-                      });
-                    },
-                    items: listLanguage.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
+            Divider(
+              thickness: 1,
+            ),
 
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                children: [
-                  Text("Gender : ",
 
-                    style: GoogleFonts.openSans(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold
+
+            ListTile(
+              title: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Gender : ",
+
+                      style: GoogleFonts.openSans(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                      ),
+
                     ),
-
-                  ),
-                  DropdownButton<String>(
-                    value: dropdownValueGender,
-                    icon: const Icon(Icons.arrow_downward),
-                    elevation: 16,
-                    style: const TextStyle(color: Colors.deepPurple),
-                    underline: Container(
-                      height: 2,
-                      color: Colors.deepPurpleAccent,
+                    DropdownButton<String>(
+                      value: dropdownValueGender,
+                      icon: const Icon(Icons.arrow_drop_down),
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.deepPurple),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          dropdownValueGender = value!;
+                        });
+                      },
+                      items: listGender.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                     ),
-                    onChanged: (String? value) {
-                      // This is called when the user selects an item.
-                      setState(() {
-                        dropdownValueGender = value!;
-                      });
-                    },
-                    items: listGender.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
-            ElevatedButton(onPressed: (){},
-                child: Text("Save Update")),
+            Divider(
+              thickness: 1,
+            ),
 
 
+            Padding(
+              padding: const EdgeInsets.only(top: 20,bottom: 10),
+              child: Container(
+                height: 50,width: 320,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4.0),
+                    color: Colors.red.shade600
+                ),
+                child: TextButton(
+                  style: ButtonStyle(
+                    shadowColor: MaterialStateProperty.all(Colors.transparent),
+                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                  ),
+                  onPressed: () async{
+
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) {
+                    //       return HomePage(SearchDestination: '',);
+                    //     },
+                    //   ),
+                    // );
+
+
+                  },
+                  child: Text('Save Update',
+                    style: TextStyle(fontSize: 20,color: Colors.white),),
+                ),
+              ),
+            ),
 
 
           ],
