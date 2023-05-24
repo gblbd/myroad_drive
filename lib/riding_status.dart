@@ -305,36 +305,41 @@ class _HomePageState extends State<RidingStatus> with TickerProviderStateMixin {
 
 
 
-            Container(
-              child:  Container(
-                height: 70,width: 320,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey,width: 1.0),
-                    borderRadius: BorderRadius.circular(3)
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 8,left: 10),
-                  child: TextFormField(
-                    //controller: _controller,
-                    //maxLength: 11,
-                    decoration: InputDecoration(
-                      suffixIcon: InkWell(
-                        onTap: (){
-
-                        },
-                          child: Icon(Icons.arrow_forward_ios)),
-                      border: InputBorder.none,
-                      labelText: "Enter dropping code",
-                      labelStyle: TextStyle(color: Colors.grey),
-                      // counterText: '$_characterCount / 11',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child:  Container(
+                    height: 70,width: 320,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey,width: 1.0),
+                        borderRadius: BorderRadius.circular(3)
                     ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8,left: 10),
+                      child: TextFormField(
+                        //controller: _controller,
+                        //maxLength: 11,
+                        decoration: InputDecoration(
+                          suffixIcon: InkWell(
+                            onTap: (){
 
-                    keyboardType: TextInputType.number,
-                    cursorColor: Colors.red,
-                    //onChanged: (input) => _validatePhoneNumber(input),
+                            },
+                              child: Icon(Icons.arrow_forward_ios)),
+                          border: InputBorder.none,
+                          labelText: "Enter dropping code",
+                          labelStyle: TextStyle(color: Colors.grey),
+                          // counterText: '$_characterCount / 11',
+                        ),
+
+                        keyboardType: TextInputType.number,
+                        cursorColor: Colors.red,
+                        //onChanged: (input) => _validatePhoneNumber(input),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
 
 
