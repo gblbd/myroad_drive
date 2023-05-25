@@ -1,4 +1,4 @@
-package com.example.myroad_drive
+package com.nalamgroup.driver
 
 import io.flutter.embedding.android.FlutterActivity
 

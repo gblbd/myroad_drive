@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myroad_drive">
+    package="com.nalamgroup.driver">
 
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
