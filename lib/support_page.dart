@@ -48,7 +48,7 @@ class SupportPage extends StatelessWidget{
 
                   InkWell(
                     onTap: (){
-                      UrlLauncher.launch('mailto:nafim15-11104@diu.edu.bd');
+                      UrlLauncher.launch('mailto:info@gbl-bd.com');
                     },
                     child: Text("Email: info@gbl-bd.com",
 
@@ -67,7 +67,7 @@ class SupportPage extends StatelessWidget{
 
               InkWell(
                 onTap: (){
-                  UrlLauncher.launch('tel: 01797609439');
+                  UrlLauncher.launch('tel: 022224470053');
                 },
                 child: Text("Phone: 022224470053",
 

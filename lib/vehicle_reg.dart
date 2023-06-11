@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
@@ -11,6 +12,12 @@ class SignUpForCar extends StatefulWidget {
 }
 
 class _SignUpForCarState extends State<SignUpForCar> {
+
+
+  FirebaseDatabase database = FirebaseDatabase.instance;
+  DatabaseReference ref = FirebaseDatabase.instance.ref("User_profile");
+
+
 
   final TextEditingController _fullName=TextEditingController();
   final TextEditingController _address=TextEditingController();
@@ -550,6 +557,8 @@ class _SignUpForCarState extends State<SignUpForCar> {
                     ),
                     onPressed: () async{
 
+                      Upload_data();
+
 
                     },
                     child: Text('AGREE & SIGNUP',
@@ -568,4 +577,51 @@ class _SignUpForCarState extends State<SignUpForCar> {
       ),
     );
   }
+
+
+
+
+  Future<void> Upload_data()
+  async {
+
+
+    await ref.child("_mobileNumber.text").child("profile").set({
+      "first_name": "_firstName.text",
+      "last_name": "_lastName.text",
+      "dob": "_dob.text",
+      "gender": "dropdownValue_month.toString()",
+      "nid": "_nid.text",
+      "mobile_no": "_mobileNumber.text",
+      "pin": "_pin.text",
+      "balance":"00.00",
+
+
+
+      // "address": {
+      //   "line1": "100 Mountain View"
+      // }
+    }).then((value) {
+      Navigator.pop(context);
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) {
+      //       return MainScreen();
+      //     },
+      //   ),
+      // );
+    });
+
+
+
+
+
+
+  }
+
+
+
+
+
+
 }
