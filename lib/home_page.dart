@@ -33,6 +33,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
    late AnimationController _animationController;
    late Animation<Offset> _animation;
 
+   double poslat=0.00;
+   double poslong=0.00;
+
+   LatLng currentpos=LatLng(0.00, 0.00);
+
   Completer<GoogleMapController> _controller = Completer();
   PanelController panelController = PanelController();
    late TabController _promoController;
@@ -70,6 +75,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       //end: 1.0
     ).animate(_animationController) ;
 
+    getPosition();
 
 
 
@@ -113,23 +119,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
 
-  final List<Marker> _markers = <Marker>[
-    Marker(
-        markerId: MarkerId('1'),
-        position: LatLng(23.8103, 90.4125),
-        infoWindow: InfoWindow(
-          title: 'My Position',
-        )
-    ),
-    Marker(
-        markerId: MarkerId('2'),
-        position: LatLng(30, 110),
-        infoWindow: InfoWindow(
-          title: 'My current Position',
-        )
-    ),
-
-  ];
+  // final List<Marker> _markers = <Marker>[
+  //   Marker(
+  //       markerId: MarkerId('1'),
+  //       position: LatLng(23.8103, 90.4125),
+  //       infoWindow: InfoWindow(
+  //         title: 'My Position',
+  //       )
+  //   ),
+  //   Marker(
+  //       markerId: MarkerId('2'),
+  //       position: LatLng(30, 110),
+  //       infoWindow: InfoWindow(
+  //         title: 'My current Position',
+  //       )
+  //   ),
+  //
+  // ];
 
 
 
@@ -153,6 +159,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
  // bool expand = true;
 
 
+   Future<void> getPosition() async {
+
+     Position position = await GeolocatorPlatform.instance.getCurrentPosition();
+
+     setState(() {
+
+       poslat=position.longitude;
+       poslong=position.longitude;
+
+       currentpos=LatLng(position.latitude, position.longitude);
+
+     });
+
+   }
 
 
 
@@ -160,8 +180,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
 
 
+   static const LatLng SourceLocation=LatLng(37.3305, -122.03272);
+   static const LatLng DestinationLocation=LatLng(37.3342, -122.06672);
 
-  bool Expand=false;
+
+
+
+   bool Expand=false;
 
   final double _initFabHeight = 120.0;
   double _fabHeight = 0;
@@ -175,7 +200,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     _panelHeightOpen = MediaQuery.of(context).size.height * .99;
 
-    Show_marker();
+
+
+    //Position position=getUserCurrentLocation() as Position;
 
     return
 
@@ -193,19 +220,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
 
 
-
-
-
                     GoogleMap(
-                      initialCameraPosition: _kGoogle,
-                      markers: Set<Marker>.of(_markers),
-                      mapType: MapType.hybrid,
-                      myLocationEnabled: true,
-                      compassEnabled: true,
-                      onMapCreated: (GoogleMapController controller){
-                        _controller.complete(controller);
+                      initialCameraPosition: CameraPosition(
+                          target: currentpos,//LatLng(currentLocation.latitude!,currentLocation.longitude!),
+                          zoom: 14.5),
+                      markers: {
+                        Marker(
+                            markerId: MarkerId("Source"),
+                            position: currentpos,
+
+
+                          //LatLng(currentLocation!.latitude!,currentLocation!.longitude!)
+                        ),
+                        // Marker(
+                        //     markerId: MarkerId("Destination"),
+                        //     position: LatLng(37.3342, -122.06672)
+                        // )
                       },
+
                     ),
+
 
 
 
@@ -434,16 +468,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
   
   
-  void Show_marker(){
-    getUserCurrentLocation().then((value) {
-
-      _kGoogle= CameraPosition(
-        target: LatLng(value.latitude,value.longitude),
-        zoom: 10,
-      );
-
-    });
-  }
 
 
   // @override
