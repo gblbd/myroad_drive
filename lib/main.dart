@@ -10,14 +10,14 @@ import 'WelcomeScreen.dart';
 
  main() async {
   WidgetsFlutterBinding.ensureInitialized();
- // await Firebase.initializeApp();
-  runApp( MyApp());
+  await Firebase.initializeApp();
+      runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
   //const MyApp({super.key});
 
-  final Future<FirebaseApp> F_App= Firebase.initializeApp();
+  // final Future<FirebaseApp> F_App= Firebase.initializeApp();
 
   // This widget is the root of your application.
   @override

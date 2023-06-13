@@ -19,7 +19,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
   void _validatePhoneNumber() {
     setState(() {
-      _isPhoneNumberValid = phoneNumbController.text.isNotEmpty && phoneNumbController.text.length==10;
+      _isPhoneNumberValid = phoneNumbController.text.isNotEmpty && phoneNumbController.text.length==11;
     });
   }
 
