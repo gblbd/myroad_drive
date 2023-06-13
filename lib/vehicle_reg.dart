@@ -1,7 +1,11 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:sizer/sizer.dart';
+
+import 'LoginScreen.dart';
+import 'WelcomeScreen.dart';
 
 
 class SignUpForCar extends StatefulWidget {
@@ -15,7 +19,7 @@ class _SignUpForCarState extends State<SignUpForCar> {
 
 
   FirebaseDatabase database = FirebaseDatabase.instance;
-  DatabaseReference ref = FirebaseDatabase.instance.ref("User_profile");
+  DatabaseReference ref = FirebaseDatabase.instance.ref("Driver_profile");
 
 
 
@@ -82,7 +86,18 @@ class _SignUpForCarState extends State<SignUpForCar> {
       dropdownValue_auth = value!;
     });
   }
+  final TextEditingController phoneNumbController=TextEditingController();
+  // void _validatePhoneNumber() {
+  //   setState(() {
+  //     _isPhoneNumberValid = phoneNumbController.text.isNotEmpty && phoneNumbController.text.length==10;
+  //   });
+  // }
 
+  @override
+  void dispose() {
+    phoneNumbController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +145,32 @@ class _SignUpForCarState extends State<SignUpForCar> {
                 ),
               ),
               Padding(
+                padding: const EdgeInsets.only(top: 16,left: 16,right: 16),
+                child: Text('Enter your mobile number',
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500
+                  ),
+                ),
+              ),
+              Padding(
                 padding: const EdgeInsets.only(left: 16,right: 16,top: 16),
+                child: IntlPhoneField(
+                  controller: phoneNumbController,
+                  decoration: InputDecoration(
+                    hintText: '1XXXXXXXXX',
+                    hintStyle: TextStyle(color: Colors.grey.shade400),
+                  ),
+                  initialCountryCode: 'BD',
+                  keyboardType: TextInputType.phone,
+                  //onChanged: (_)=>_validatePhoneNumber(),
+                  onCountryChanged: (country) {
+                    print('Country changed to: ' + country.name);
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 16,right: 16,top: 0),
                 child: TextFormField(
                   controller: _fullName,
                   cursorColor: Colors.red,
@@ -148,7 +188,7 @@ class _SignUpForCarState extends State<SignUpForCar> {
                   cursorColor: Colors.red,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
-                    labelText: 'Address',
+                    labelText: 'Address (Full Address)*',
                     //labelStyle: TextStyle(color: )
                   ),
                 ),
@@ -198,7 +238,7 @@ class _SignUpForCarState extends State<SignUpForCar> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        width: 50.w,
+                        width: 58.w,
                         child: dropdownValue_auth =='NID' ? TextFormField(
                           controller: _Nid,
                           cursorColor: Colors.red,
@@ -270,14 +310,13 @@ class _SignUpForCarState extends State<SignUpForCar> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        width: 50.w,
+                        width: 58.3.w,
                         child: TextFormField(
                           controller: _DOB,
                           cursorColor: Colors.red,
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
                             labelText: 'Date of Birth',
-                            //labelStyle: TextStyle(color: )
                           ),
                             readOnly: true,
                             onTap: () async {
@@ -556,8 +595,28 @@ class _SignUpForCarState extends State<SignUpForCar> {
                       overlayColor: MaterialStateProperty.all(Colors.transparent),
                     ),
                     onPressed: () async{
+                      await ref.child("${phoneNumbController.text.toString()}").child("Dprofile").set({
+                        "Dphone_Number": "${phoneNumbController.text.toString()}",
+                        "Dfull_Name":"${_fullName.text.toString()}",
+                        "Daddress":"${_address.text.toString()}",
+                        "Dpassport":"${dropdownValue_gender.toString()}",
+                        "DGender":"${dropdownValue_gender.toString()}",
+                        "Vehicle_Type":"${dropdownValue_Car.toString()}",
+                        "Vehicle_Model":"${dropdownValue_Model.toString()}",
+                        "Vehicle_Registration_Number": "${Vehicle_registrationNum.text.toString()}",
+                        "Driving_licence_Number":"${Driving_LicenseNUmber.text.toString()}"
+                      }).then((value) {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return LoginScreen();
+                            },
+                          ),
+                        );
+                      });
 
-                      Upload_data();
 
 
                     },
@@ -580,45 +639,45 @@ class _SignUpForCarState extends State<SignUpForCar> {
 
 
 
-
-  Future<void> Upload_data()
-  async {
-
-
-    await ref.child("_mobileNumber.text").child("profile").set({
-      "first_name": "_firstName.text",
-      "last_name": "_lastName.text",
-      "dob": "_dob.text",
-      "gender": "dropdownValue_month.toString()",
-      "nid": "_nid.text",
-      "mobile_no": "_mobileNumber.text",
-      "pin": "_pin.text",
-      "balance":"00.00",
-
-
-
-      // "address": {
-      //   "line1": "100 Mountain View"
-      // }
-    }).then((value) {
-      Navigator.pop(context);
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) {
-      //       return MainScreen();
-      //     },
-      //   ),
-      // );
-    });
-
-
-
-
-
-
-  }
-
+  //
+  // Future<void> Upload_data()
+  // async {
+  //
+  //
+  //   await ref.child("_mobileNumber.text").child("profile").set({
+  //     "first_name": "_firstName.text",
+  //     "last_name": "_lastName.text",
+  //     "dob": "_dob.text",
+  //     "gender": "dropdownValue_month.toString()",
+  //     "nid": "_nid.text",
+  //     "mobile_no": "_mobileNumber.text",
+  //     "pin": "_pin.text",
+  //     "balance":"00.00",
+  //
+  //
+  //
+  //     // "address": {
+  //     //   "line1": "100 Mountain View"
+  //     // }
+  //   }).then((value) {
+  //     Navigator.pop(context);
+  //     // Navigator.push(
+  //     //   context,
+  //     //   MaterialPageRoute(
+  //     //     builder: (context) {
+  //     //       return MainScreen();
+  //     //     },
+  //     //   ),
+  //     // );
+  //   });
+  //
+  //
+  //
+  //
+  //
+  //
+  // }
+  //
 
 
 

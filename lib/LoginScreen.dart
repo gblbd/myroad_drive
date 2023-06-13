@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:myroad_drive/home_page.dart';
+import 'package:myroad_drive/vehicle_reg.dart';
 
 import 'CreateAccount.dart';
 
@@ -137,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return CreateAccount();
+                          return SignUpForCar();
                         },
                       ),
                     );
