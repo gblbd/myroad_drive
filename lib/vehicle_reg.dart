@@ -609,6 +609,9 @@ class _SignUpForCarState extends State<SignUpForCar> {
                       overlayColor: MaterialStateProperty.all(Colors.transparent),
                     ),
                     onPressed: () async{
+
+
+
                       await ref.child("0${phoneNumbController.text.toString()}").child("Dprofile").set({
                         "Dphone_Number": "0${phoneNumbController.text.toString()}",
                         "Password":"${_password.text.toString()}",
@@ -622,7 +625,10 @@ class _SignUpForCarState extends State<SignUpForCar> {
                         "Vehicle_Model":"${dropdownValue_Model.toString()}",
                         "Vehicle_Registration_Number": "${Vehicle_registrationNum.text.toString()}",
                         "Driving_licence_Number":"${Driving_LicenseNUmber.text.toString()}"
+
                       }).then((value) {
+
+
                         Navigator.pop(context);
                         Navigator.push(
                           context,
@@ -634,8 +640,7 @@ class _SignUpForCarState extends State<SignUpForCar> {
                         );
                       });
 
-
-
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     },
                     child: Text('AGREE & SIGNUP',
                       style: TextStyle(fontSize: 20,color: Colors.white),),

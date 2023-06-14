@@ -96,6 +96,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       overlayColor: MaterialStateProperty.all(Colors.transparent),
                     ),
                     onPressed: () async{
+
+
                       final snapshot_pass = await ref.child(_number.text.toString()).child("Dprofile").child("Password").get();
                       final snapshot_name = await ref.child(_number.text.toString()).child("Dprofile").child("Dfull_Name").get();
                       final snapshot_address = await ref.child(_number.text.toString()).child("Dprofile").child("Daddress").get();
@@ -109,12 +111,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       final snapshot_licence = await ref.child(_number.text.toString()).child("Dprofile").child("Driving_licence_Number").get();
 
                       if(snapshot_pass.exists){
+
+
                         if(snapshot_pass.value.toString()== _Passcontroller.text.toString()){
+
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return HomePage(SearchDestination: '',
+                                return HomePage(
+                                    SearchDestination: '',
                                   phnNumber: _number.text.toString(),
                                   password: snapshot_pass.value.toString(),
                                   full_name: snapshot_name.value.toString(),

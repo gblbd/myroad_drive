@@ -36,6 +36,11 @@ class HomePage extends StatefulWidget {
   final String vehicleRegNum;
   final String licenceNum;
 
+
+
+
+
+
   const HomePage({Key? key, required this.SearchDestination, required this.phnNumber, required this.password, required this.full_name, required this.address, required this.passport, required this.gender, required this.vehicleType, required this.vehicleModel, required this.vehicleRegNum, required this.licenceNum, required this.passport_number, required this.date_of_birth}) : super(key: key);
 
   @override
