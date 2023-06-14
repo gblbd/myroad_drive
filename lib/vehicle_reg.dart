@@ -87,6 +87,7 @@ class _SignUpForCarState extends State<SignUpForCar> {
     });
   }
   final TextEditingController phoneNumbController=TextEditingController();
+  final TextEditingController _password=TextEditingController();
   // void _validatePhoneNumber() {
   //   setState(() {
   //     _isPhoneNumberValid = phoneNumbController.text.isNotEmpty && phoneNumbController.text.length==10;
@@ -169,6 +170,20 @@ class _SignUpForCarState extends State<SignUpForCar> {
                   },
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(left: 16,right: 16,),
+                child: TextField(
+                  controller: _password,
+                  decoration: InputDecoration(
+                     // border: InputBorder.none,
+                      labelText: "Enter Your Password",
+                      labelStyle: TextStyle(color: Colors.grey)
+                  ),
+                  cursorColor: Colors.red,
+
+                ),
+              ),
+
               Padding(
                 padding: const EdgeInsets.only(left: 16,right: 16,top: 0),
                 child: TextFormField(
@@ -536,7 +551,6 @@ class _SignUpForCarState extends State<SignUpForCar> {
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     labelText: 'Enter Driving Licence Number*',
-                    //labelStyle: TextStyle(color: )
                   ),
                 ),
               ),
@@ -595,12 +609,15 @@ class _SignUpForCarState extends State<SignUpForCar> {
                       overlayColor: MaterialStateProperty.all(Colors.transparent),
                     ),
                     onPressed: () async{
-                      await ref.child("${phoneNumbController.text.toString()}").child("Dprofile").set({
-                        "Dphone_Number": "${phoneNumbController.text.toString()}",
+                      await ref.child("0${phoneNumbController.text.toString()}").child("Dprofile").set({
+                        "Dphone_Number": "0${phoneNumbController.text.toString()}",
+                        "Password":"${_password.text.toString()}",
                         "Dfull_Name":"${_fullName.text.toString()}",
                         "Daddress":"${_address.text.toString()}",
-                        "Dpassport":"${dropdownValue_gender.toString()}",
+                        "Dpassport":"${dropdownValue_auth.toString()}",
+                        "Dpassport_num":"${_password.text.toString()}",
                         "DGender":"${dropdownValue_gender.toString()}",
+                        "Ddate_of_birth":"${_DOB.text.toString()}",
                         "Vehicle_Type":"${dropdownValue_Car.toString()}",
                         "Vehicle_Model":"${dropdownValue_Model.toString()}",
                         "Vehicle_Registration_Number": "${Vehicle_registrationNum.text.toString()}",
@@ -638,46 +655,6 @@ class _SignUpForCarState extends State<SignUpForCar> {
   }
 
 
-
-  //
-  // Future<void> Upload_data()
-  // async {
-  //
-  //
-  //   await ref.child("_mobileNumber.text").child("profile").set({
-  //     "first_name": "_firstName.text",
-  //     "last_name": "_lastName.text",
-  //     "dob": "_dob.text",
-  //     "gender": "dropdownValue_month.toString()",
-  //     "nid": "_nid.text",
-  //     "mobile_no": "_mobileNumber.text",
-  //     "pin": "_pin.text",
-  //     "balance":"00.00",
-  //
-  //
-  //
-  //     // "address": {
-  //     //   "line1": "100 Mountain View"
-  //     // }
-  //   }).then((value) {
-  //     Navigator.pop(context);
-  //     // Navigator.push(
-  //     //   context,
-  //     //   MaterialPageRoute(
-  //     //     builder: (context) {
-  //     //       return MainScreen();
-  //     //     },
-  //     //   ),
-  //     // );
-  //   });
-  //
-  //
-  //
-  //
-  //
-  //
-  // }
-  //
 
 
 

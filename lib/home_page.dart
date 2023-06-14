@@ -22,7 +22,21 @@ import 'document_page.dart';
 
 class HomePage extends StatefulWidget {
   final String SearchDestination;
-  const HomePage({Key? key, required this.SearchDestination}) : super(key: key);
+
+  final String phnNumber;
+  final String password;
+  final String full_name;
+  final String address;
+  final String passport;
+  final String passport_number;
+  final String gender;
+  final String date_of_birth;
+  final String vehicleType;
+  final String vehicleModel;
+  final String vehicleRegNum;
+  final String licenceNum;
+
+  const HomePage({Key? key, required this.SearchDestination, required this.phnNumber, required this.password, required this.full_name, required this.address, required this.passport, required this.gender, required this.vehicleType, required this.vehicleModel, required this.vehicleRegNum, required this.licenceNum, required this.passport_number, required this.date_of_birth}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();

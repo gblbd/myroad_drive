@@ -1,5 +1,8 @@
 
+
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myroad_drive/home_page.dart';
 import 'package:myroad_drive/vehicle_reg.dart';
 
@@ -14,9 +17,12 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _Passcontroller = TextEditingController();
   final TextEditingController _number = TextEditingController();
-
+///////////////////////////////////////////////////////
+  FirebaseDatabase database = FirebaseDatabase.instance;
+  DatabaseReference ref = FirebaseDatabase.instance.ref("Driver_profile");
+////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(right: 8,left: 10),
                   child: TextFormField(
-                    controller: _controller,
+                    controller: _number,
                     maxLength: 11,
                     decoration: InputDecoration(
                       border: InputBorder.none,
@@ -64,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(right: 8,left: 10),
                   child: TextField(
+                    controller: _Passcontroller,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       labelText: "Enter Your Password",
@@ -89,15 +96,69 @@ class _LoginScreenState extends State<LoginScreen> {
                       overlayColor: MaterialStateProperty.all(Colors.transparent),
                     ),
                     onPressed: () async{
+                      final snapshot_pass = await ref.child(_number.text.toString()).child("Dprofile").child("Password").get();
+                      final snapshot_name = await ref.child(_number.text.toString()).child("Dprofile").child("Dfull_Name").get();
+                      final snapshot_address = await ref.child(_number.text.toString()).child("Dprofile").child("Daddress").get();
+                      final snapshot_passport = await ref.child(_number.text.toString()).child("Dprofile").child("Dpassport").get();
+                      final snapshot_passport_num = await ref.child(_number.text.toString()).child("Dprofile").child("Dpassport_num").get();
+                      final snapshot_gender = await ref.child(_number.text.toString()).child("Dprofile").child("DGender").get();
+                      final snapshot_date_of_birth = await ref.child(_number.text.toString()).child("Dprofile").child("Ddate_of_birth").get();
+                      final snapshot_v_type = await ref.child(_number.text.toString()).child("Dprofile").child("Vehicle_Type").get();
+                      final snapshot_v_model = await ref.child(_number.text.toString()).child("Dprofile").child("Vehicle_Model").get();
+                      final snapshot_v_num = await ref.child(_number.text.toString()).child("Dprofile").child("Vehicle_Registration_Number").get();
+                      final snapshot_licence = await ref.child(_number.text.toString()).child("Dprofile").child("Driving_licence_Number").get();
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return HomePage(SearchDestination: '',);
-                          },
-                        ),
-                      );
+                      if(snapshot_pass.exists){
+                        if(snapshot_pass.value.toString()== _Passcontroller.text.toString()){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return HomePage(SearchDestination: '',
+                                  phnNumber: _number.text.toString(),
+                                  password: snapshot_pass.value.toString(),
+                                  full_name: snapshot_name.value.toString(),
+                                  address: snapshot_address.value.toString(),
+                                  passport: snapshot_passport.value.toString(),
+                                  gender: snapshot_gender.value.toString(),
+                                  vehicleType: snapshot_v_type.value.toString(),
+                                  vehicleModel: snapshot_v_model.value.toString(),
+                                  vehicleRegNum: snapshot_v_num.value.toString(),
+                                  licenceNum: snapshot_licence.value.toString(),
+                                  passport_number: snapshot_passport_num.value.toString(),
+                                  date_of_birth: snapshot_date_of_birth.value.toString());
+                              },
+                            ),
+                          );
+                        }
+                        else{
+                          Fluttertoast.showToast(
+                              msg: "Wrong Information",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0
+                          );
+                        }
+
+                      }
+                      else{
+
+                        Fluttertoast.showToast(
+                            msg: "No Account found",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.TOP,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0
+                        );
+                      }
+
+
+
 
 
                     },
