@@ -143,6 +143,43 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
 
               )),
 
+              SizedBox(height: 21,),
+
+
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    onPrimary: Colors.white,
+                    shadowColor: Colors.greenAccent,
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32.0)),
+                    minimumSize: Size(300, 40), //////// HERE
+                  ),
+
+
+                  onPressed: () async {
+
+
+                    // PermissionStatus permission_result;
+                    // permission_result=await Permission.storage.request();
+                    //
+                    // FilePickerResult? result = await FilePicker.platform.pickFiles();
+                    //
+                    // if (result != null) {
+                    //   File file = File(result.files.single.path!);
+                    // } else {
+                    //   // User canceled the picker
+                    // }
+
+                  }, child: Text("Upload the file",
+
+                style: GoogleFonts.openSans(
+                    fontSize: 21,
+                    fontWeight: FontWeight.bold
+                ),
+
+              )),
 
 
 
