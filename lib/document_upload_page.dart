@@ -160,6 +160,7 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
 
                   onPressed: () async {
 
+                    //var storage=FirebaseStorage
 
                     // PermissionStatus permission_result;
                     // permission_result=await Permission.storage.request();

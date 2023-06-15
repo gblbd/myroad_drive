@@ -623,6 +623,8 @@ class _SignUpForCarState extends State<SignUpForCar> {
                         "Ddate_of_birth":"${_DOB.text.toString()}",
                         "Vehicle_Type":"${dropdownValue_Car.toString()}",
                         "Vehicle_Model":"${dropdownValue_Model.toString()}",
+                        "Latitude":00.00,
+                        "Longitude":00.00,
                         "Vehicle_Registration_Number": "${Vehicle_registrationNum.text.toString()}",
                         "Driving_licence_Number":"${Driving_LicenseNUmber.text.toString()}"
 
