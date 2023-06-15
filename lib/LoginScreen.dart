@@ -101,8 +101,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       final snapshot_pass = await ref.child(_number.text.toString()).child("Dprofile").child("Password").get();
                       final snapshot_name = await ref.child(_number.text.toString()).child("Dprofile").child("Dfull_Name").get();
                       final snapshot_address = await ref.child(_number.text.toString()).child("Dprofile").child("Daddress").get();
-                      final snapshot_passport = await ref.child(_number.text.toString()).child("Dprofile").child("Dpassport").get();
-                      final snapshot_passport_num = await ref.child(_number.text.toString()).child("Dprofile").child("Dpassport_num").get();
+                      final snapshot_nid = await ref.child(_number.text.toString()).child("Dprofile").child("Dnid").get();
+                      final snapshot_nid_num = await ref.child(_number.text.toString()).child("Dprofile").child("Dnid_num").get();
                       final snapshot_gender = await ref.child(_number.text.toString()).child("Dprofile").child("DGender").get();
                       final snapshot_date_of_birth = await ref.child(_number.text.toString()).child("Dprofile").child("Ddate_of_birth").get();
                       final snapshot_v_type = await ref.child(_number.text.toString()).child("Dprofile").child("Vehicle_Type").get();
@@ -126,14 +126,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   password: snapshot_pass.value.toString(),
                                   full_name: snapshot_name.value.toString(),
                                   address: snapshot_address.value.toString(),
-                                  passport: snapshot_passport.value.toString(),
                                   gender: snapshot_gender.value.toString(),
                                   vehicleType: snapshot_v_type.value.toString(),
                                   vehicleModel: snapshot_v_model.value.toString(),
                                   vehicleRegNum: snapshot_v_num.value.toString(),
                                   licenceNum: snapshot_licence.value.toString(),
-                                  passport_number: snapshot_passport_num.value.toString(),
-                                  date_of_birth: snapshot_date_of_birth.value.toString());
+                                  date_of_birth: snapshot_date_of_birth.value.toString(),
+                                  nid: snapshot_nid.value.toString(),
+                                  nid_number: snapshot_nid_num.value.toString(),
+                                  );
                               },
                             ),
                           );
@@ -178,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
               TextButton(
-                style: ButtonStyle(
+                 style: ButtonStyle(
                   shadowColor: MaterialStateProperty.all(Colors.transparent),
                   overlayColor: MaterialStateProperty.all(Colors.transparent),
                 ),

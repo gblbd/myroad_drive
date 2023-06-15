@@ -6,148 +6,288 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:myroad_drive/edit_profile.dart';
 import 'package:sizer/sizer.dart';
 
+
+
 class ProfilePage extends StatelessWidget{
+
+  final String DfullName;
+  final String DphoneNum;
+  final String Daddress;
+  final String DdateOfBirth;
+  final String Dgender;
+  final String DnidNum;
+  final String DvehicleType;
+  final String DvehicleModel;
+  final String DvehicleRegNum;
+  final String DdrivingLicenceNum;
+
+  const ProfilePage({Key? key, required this.DfullName, required this.DphoneNum, required this.Daddress, required this.DdateOfBirth, required this.Dgender, required this.DnidNum, required this.DvehicleType, required this.DvehicleModel, required this.DvehicleRegNum, required this.DdrivingLicenceNum}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.red.shade900,
         title: Text("Profile"),
       ),
-      body: Container(
-
-
-
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 30),
-              width: 100.w,
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.red.shade100
-              ),
-              child: ListTile(
-
-                leading: Container(
-
-                  width: 25.w,
-                  height: 18.h,
-                  child: CircleAvatar(
-                    child: Icon(Icons.person),
-                  ),
+      body: SingleChildScrollView(
+        child: Container(
+          
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 30),
+                width: 100.w,
+                height: 150,
+                decoration: BoxDecoration(
+                  color: Colors.red.shade50
                 ),
-                title: Text("Name",
+                child: ListTile(
 
-                  style: GoogleFonts.openSans(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold
+                  leading: Container(
+
+                    width: 25.w,
+                    height: 18.h,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey.shade100,
+                      child: Icon(Icons.person,color: Colors.blueGrey,),
+                    ),
                   ),
+                  title: Text("Name: ${DfullName}",
 
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("+8801XXXXXXXXX"),
-                    Row(
-                      children: [
-                        Icon(Icons.star,
-                          color: Colors.amberAccent.shade700,
+                    style: GoogleFonts.openSans(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600
+                    ),
 
-                        ),
-                        Text(" 4.6",
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Phone Number: ${DphoneNum}"),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.star,
+                            color: Colors.amberAccent.shade700,
 
-                          style: GoogleFonts.openSans(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold
                           ),
+                          Text(" 4.6",
 
-                        )
-                      ],
-                    )
-                  ],
+                            style: GoogleFonts.openSans(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
+                            ),
+
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-
-            // Text("Name : Example Name",
-            //
-            // ),
-
-            //Text("Phone Number : +8801XXXXXXXXXXX"),
-
-            SizedBox(height: 20,),
 
 
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Driving Licence No. : XXXXXXXXXXXXX",
-
-                    style: GoogleFonts.openSans(
-                        fontSize: 20
-                    ),
-
-                  ),
-                  SizedBox(height: 20,),
-                  Text("Vehicle Registration No. XXXXXXXXXXXXXX",
-
-                    style: GoogleFonts.openSans(
-                        fontSize: 20
-                    ),
-
-                  ),
-                  SizedBox(height: 20,),
-
-                  Text("Gender: Male",
-
-                    style: GoogleFonts.openSans(
-                        fontSize: 20
-                    ),
-
-                  ),
-                  SizedBox(height: 20,),
 
 
-                  Text("Language : English",
 
-                    style: GoogleFonts.openSans(
-                        fontSize: 20
-                    ),
 
-                  ),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Address",
+                            style: GoogleFonts.openSans(
+                                fontSize: 16,fontWeight: FontWeight.w600
+                            ),
+                          ),
+                          Text("${Daddress}",
+                            style: GoogleFonts.openSans(
+                                fontSize: 14,fontWeight: FontWeight.w400
+                            ),
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      SizedBox(height: 20,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
 
-                  SizedBox(height: 20,),
+                            children: [
+                              Text("Date Of Birth",
+                                style: GoogleFonts.openSans(
+                                    fontSize: 16,fontWeight: FontWeight.w600
+                                ),
+                              ),
+                              Text("${DdateOfBirth}",
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14,fontWeight: FontWeight.w400
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
 
-                  Divider(
-                    thickness: 1,
-                  ),
+                            children: [
+                              Text("Gender",
+                                style: GoogleFonts.openSans(
+                                    fontSize: 16,fontWeight: FontWeight.w600
+                                ),
+                              ),
+                              Text("${Dgender}",
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14,fontWeight: FontWeight.w400
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      SizedBox(height: 20,),
 
-                  ListTile(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
 
-                    onTap: (){},
-                    title: Text("Change password",
+                        children: [
+                          Text("NID Number",
+                            style: GoogleFonts.openSans(
+                                fontSize: 16,fontWeight: FontWeight.w600
+                            ),
+                          ),
+                          Text("${DnidNum}",
+                            style: GoogleFonts.openSans(
+                                fontSize: 14,fontWeight: FontWeight.w400
+                            ),
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      SizedBox(height: 20,),
 
-                      style: GoogleFonts.openSans(
-                          fontSize: 20
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+
+                            children: [
+                              Text("Vehicle Type",
+                                style: GoogleFonts.openSans(
+                                    fontSize: 16,fontWeight: FontWeight.w600
+                                ),
+                              ),
+                              Text("${DvehicleType}",
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14,fontWeight: FontWeight.w400
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+
+                            children: [
+                              Text("Vehicle Model",
+                                style: GoogleFonts.openSans(
+                                    fontSize: 16,fontWeight: FontWeight.w600
+                                ),
+                              ),
+                              Text("${DvehicleModel}",
+                                style: GoogleFonts.openSans(
+                                    fontSize: 14,fontWeight: FontWeight.w400
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      SizedBox(height: 20,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+
+                        children: [
+                          Text("Vehicle Registration Number",
+                            style: GoogleFonts.openSans(
+                                fontSize: 16,fontWeight: FontWeight.w600
+                            ),
+                          ),
+                          Text("${DvehicleRegNum}",
+                            style: GoogleFonts.openSans(
+                                fontSize: 14,fontWeight: FontWeight.w400
+                            ),
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      SizedBox(height: 20,),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+
+                        children: [
+                          Text("Driving Licence Number",
+                            style: GoogleFonts.openSans(
+                                fontSize: 16,fontWeight: FontWeight.w600
+                            ),
+                          ),
+                          Text("${DdrivingLicenceNum}",
+                            style: GoogleFonts.openSans(
+                                fontSize: 14,fontWeight: FontWeight.w400
+                            ),
+                          ),
+                        ],
                       ),
 
-                    ),
+                      Divider(
+                        thickness: 1,
+                      ),
+
+                      ListTile(
+
+                        onTap: (){},
+                        title: Text("Change password",
+
+                          style: GoogleFonts.openSans(
+                              fontSize: 20
+                          ),
+
+                        ),
+                      ),
+
+                      Divider(
+                        thickness: 1,
+                      ),
+
+
+
+
+                    ],
                   ),
-
-                  Divider(
-                    thickness: 1,
-                  ),
-
-
-
-
-                ],
-              ),
-            )
+                ),
+              )
 
 
 
@@ -162,7 +302,8 @@ class ProfilePage extends StatelessWidget{
 
 
 
-          ],
+            ],
+          ),
         ),
       ),
 

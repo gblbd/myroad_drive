@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -27,8 +28,8 @@ class HomePage extends StatefulWidget {
   final String password;
   final String full_name;
   final String address;
-  final String passport;
-  final String passport_number;
+  final String nid;
+  final String nid_number;
   final String gender;
   final String date_of_birth;
   final String vehicleType;
@@ -41,7 +42,7 @@ class HomePage extends StatefulWidget {
 
 
 
-  const HomePage({Key? key, required this.SearchDestination, required this.phnNumber, required this.password, required this.full_name, required this.address, required this.passport, required this.gender, required this.vehicleType, required this.vehicleModel, required this.vehicleRegNum, required this.licenceNum, required this.passport_number, required this.date_of_birth}) : super(key: key);
+  const HomePage({Key? key, required this.SearchDestination, required this.phnNumber, required this.password, required this.full_name, required this.address, required this.gender, required this.vehicleType, required this.vehicleModel, required this.vehicleRegNum, required this.licenceNum,  required this.date_of_birth, required this.nid, required this.nid_number}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -372,7 +373,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return ProfilePage();
+                        return ProfilePage(
+                          DfullName: widget.full_name,
+                          DphoneNum: widget.phnNumber,
+                          Daddress: widget.address,
+                          DdateOfBirth: widget.date_of_birth,
+                          Dgender: widget.gender,
+                          DnidNum: widget.nid_number,
+                          DvehicleType: widget.vehicleType,
+                          DvehicleModel: widget.vehicleModel,
+                          DvehicleRegNum: widget.vehicleRegNum,
+                          DdrivingLicenceNum: widget.licenceNum,);
                       },
                     ),
                   );
@@ -475,6 +486,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
                 ),
                 title: Text("Logout"),
+                onTap: (){
+
+                },
               ),
 
 
@@ -578,7 +592,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
            ],
          ));
    }
-
 
 
 

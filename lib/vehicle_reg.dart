@@ -35,7 +35,7 @@ class _SignUpForCarState extends State<SignUpForCar> {
   List<String> list_gender = <String>['Male', 'Female','Other'];
   String dropdownValue_gender = 'Male';
 
-  List<String> list_auth = <String>['NID', 'Passport'];
+  List<String> list_auth = <String>['NID'];// 'Passport'];
   String dropdownValue_auth = 'NID';
 
   List<String> list_Car = <String>['Select Vehicle Model', 'Daihstsu','Ford','Honda','Hyundai','Maruti Suzuki','Mazda','Mitsubishi','Nissan','Tata','Toyota',];
@@ -254,7 +254,7 @@ class _SignUpForCarState extends State<SignUpForCar> {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         width: 58.w,
-                        child: dropdownValue_auth =='NID' ? TextFormField(
+                        child: TextFormField(
                           controller: _Nid,
                           cursorColor: Colors.red,
                           keyboardType: TextInputType.name,
@@ -262,15 +262,24 @@ class _SignUpForCarState extends State<SignUpForCar> {
                             labelText: 'NID Number*',
                             //labelStyle: TextStyle(color: )
                           ),
-                        ):TextFormField(
-                          controller: _Passport,
-                          cursorColor: Colors.red,
-                          keyboardType: TextInputType.name,
-                          decoration: InputDecoration(
-                            labelText: 'Passport Number*',
-                            //labelStyle: TextStyle(color: )
-                          ),
-                        ),
+                        )
+                        // dropdownValue_auth =='NID' ? TextFormField(
+                        //   controller: _Nid,
+                        //   cursorColor: Colors.red,
+                        //   keyboardType: TextInputType.name,
+                        //   decoration: InputDecoration(
+                        //     labelText: 'NID Number*',
+                        //     //labelStyle: TextStyle(color: )
+                        //   ),
+                        // ):TextFormField(
+                        //   controller: _Passport,
+                        //   cursorColor: Colors.red,
+                        //   keyboardType: TextInputType.name,
+                        //   decoration: InputDecoration(
+                        //     labelText: 'Passport Number*',
+                        //     //labelStyle: TextStyle(color: )
+                        //   ),
+                        // ),
                       ),
                     )
                   ],
@@ -617,12 +626,13 @@ class _SignUpForCarState extends State<SignUpForCar> {
                         "Password":"${_password.text.toString()}",
                         "Dfull_Name":"${_fullName.text.toString()}",
                         "Daddress":"${_address.text.toString()}",
-                        "Dpassport":"${dropdownValue_auth.toString()}",
-                        "Dpassport_num":"${_password.text.toString()}",
+                        "Dnid":"${dropdownValue_auth.toString()}",
+                        //"Dpassport_num/Dnid_num":"${dropdownValue_auth=='NID'? _Nid.text.toString(): _Passport.text.toString()}",
+                        "Dnid_num":"${_Nid.text.toString()}",
                         "DGender":"${dropdownValue_gender.toString()}",
                         "Ddate_of_birth":"${_DOB.text.toString()}",
-                        "Vehicle_Type":"${dropdownValue_Car.toString()}",
-                        "Vehicle_Model":"${dropdownValue_Model.toString()}",
+                        "Vehicle_Type":"${dropdownValue_vehicle_Type.toString()}",
+                        "Vehicle_Model":"${dropdownValue_Car.toString()}",
                         "Latitude":00.00,
                         "Longitude":00.00,
                         "Vehicle_Registration_Number": "${Vehicle_registrationNum.text.toString()}",
