@@ -21,6 +21,11 @@ class _EditProfileState extends State<EditProfile> {
   String dropdownValueGender = 'Male';
 
 
+  TextEditingController fullnameUp=TextEditingController();
+  TextEditingController phoneNumUp=TextEditingController();
+  TextEditingController addressUp=TextEditingController();
+  TextEditingController dateOfBirthUp=TextEditingController();
+  TextEditingController genderUp=TextEditingController();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

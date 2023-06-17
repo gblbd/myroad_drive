@@ -315,9 +315,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             children: [
 
                UserAccountsDrawerHeader(
+
                 accountName: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: Text("Name",
+                  child: Text("${widget.full_name}",
                     style: GoogleFonts.openSans(
                       fontSize: 21,
                       fontWeight: FontWeight.bold,
@@ -328,7 +329,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
                 accountEmail: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: Text("Email",
+                  child: Text("${widget.phnNumber}",
                     style: GoogleFonts.openSans(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
@@ -344,7 +345,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         //getImage();
                       },
                       child: CircleAvatar(
-                        child: Icon(Icons.person),//img!=null?Image.file(img!,width:50,height: 50,):Icon(Icons.person,size: 50,),
+                        backgroundColor: Colors.grey.shade100,
+                        child: Icon(Icons.person,color: Colors.blueGrey,),//img!=null?Image.file(img!,width:50,height: 50,):Icon(Icons.person,size: 50,),
                         radius: 30,
 
 
@@ -353,7 +355,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
                 ),
                 decoration: new BoxDecoration(
-                    color: Colors.red.shade200
+                    color: Colors.red.shade50
                 ),
 
 
@@ -436,6 +438,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 },
                 leading: Icon(Icons.share),
                 title: Text("Share this app"),
+
               ),
 
               ListTile(
