@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myroad_drive/home_page.dart';
 import 'package:myroad_drive/vehicle_reg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'CreateAccount.dart';
 
@@ -138,6 +139,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                             ),
                           );
+
+                          sharedPref(_number.text.toString(), snapshot_pass.value.toString(),
+                              snapshot_name.value.toString(),snapshot_address.value.toString(),
+                            snapshot_gender.value.toString(), snapshot_v_type.value.toString(),
+                              snapshot_v_model.value.toString(),snapshot_v_num.value.toString(),snapshot_licence.value.toString(),
+                          snapshot_date_of_birth.value.toString(),snapshot_nid.value.toString(),snapshot_nid_num.value.toString());
+
+
                         }
                         else{
                           Fluttertoast.showToast(
@@ -236,4 +245,38 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+
+
+  Future<void> sharedPref(String phnNumber , String password, String full_name, String address,
+      String gender, String vehicleType, String vehicleModel, String vehicleRegNum, String licenceNum,
+      String date_of_birth, String nid, String nid_number,
+      ) async {
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString('phoneNumber', phnNumber);
+    await prefs.setString('password', password);
+    await prefs.setString('full_name', full_name);
+    await prefs.setString('address', address);
+    await prefs.setString('gender', gender);
+    await prefs.setString('vehicleType', vehicleType);
+    await prefs.setString('vehicleModel', vehicleModel);
+    await prefs.setString('vehicleRegNum', vehicleRegNum);
+    await prefs.setString('licenceNum', licenceNum);
+    await prefs.setString('date_of_birth', date_of_birth);
+    await prefs.setString('nid', nid);
+    await prefs.setString('nid_number', nid_number);
+
+
+    //await prefs.setString('action', 'Start');
+
+
+
+  }
+
+
+
+
+
 }
