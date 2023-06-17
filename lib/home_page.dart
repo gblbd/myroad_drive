@@ -5,6 +5,7 @@ import 'dart:async';
 
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -50,7 +51,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
-   late AnimationController _animationController;
+
+
+  FirebaseDatabase database = FirebaseDatabase.instance;
+  DatabaseReference ref = FirebaseDatabase.instance.ref("Driver_profile");
+
+
+
+  late AnimationController _animationController;
    late Animation<Offset> _animation;
 
    double poslat=0.00;
@@ -189,10 +197,24 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
        poslong=position.longitude;
 
        currentpos=LatLng(position.latitude, position.longitude);
+       uploadPos(poslat, poslong);
 
      });
 
    }
+
+
+
+   Future<void> uploadPos(double latitude, double longitude) async {
+
+     await ref.child("${widget.phnNumber}").child("Dprofile").update({
+
+       "Latitude":latitude,
+       "Longitude":longitude,
+
+     });
+   }
+
 
 
 
