@@ -242,7 +242,30 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     _panelHeightOpen = MediaQuery.of(context).size.height * .99;
 
+    Timer.periodic(Duration(seconds: 60), (timer){
 
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => HomePage(SearchDestination: "",
+                  phnNumber: widget.phnNumber,
+                  password: widget.password, full_name: widget.full_name,
+                  address: widget.address, gender: widget.gender,
+                  vehicleType: widget.vehicleType, vehicleModel: widget.vehicleModel,
+                  vehicleRegNum: widget.vehicleRegNum, licenceNum: widget.licenceNum,
+                  date_of_birth: widget.date_of_birth, nid: widget.nid,
+                  nid_number: widget.nid_number)));
+
+
+    },);
+
+
+    Timer.periodic(Duration(seconds: 5), (timer){
+
+      getPosition();
+
+
+    },);
 
     //Position position=getUserCurrentLocation() as Position;
 
