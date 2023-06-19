@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -51,10 +52,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
+  Query dbref=FirebaseDatabase.instance.ref("carRequest").child("ride_request");
+
 
 
   FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference ref = FirebaseDatabase.instance.ref("Driver_profile");
+
+
 
 
 
@@ -592,51 +597,111 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
 
 
+             Padding(
+               padding: const EdgeInsets.all(4.0),
+               child: FirebaseAnimatedList(
 
-             Container(
-               child: ListView.builder(
+                 physics: ScrollPhysics(),
                  shrinkWrap: true,
-                itemCount: 3,
-                // controller: sc,
-                 itemBuilder: (context,index){
+                 query: dbref,
+                 reverse: true,
+                 itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index) {
+
+
 
                    return Container(
-                     margin: EdgeInsets.all(10),
-                     decoration: BoxDecoration(
-                       color: Colors.red.shade100,
-                       borderRadius: BorderRadius.circular(10)
-                     ),
-                     child: ListTile(
-                       onTap: (){
-                         Navigator.push(
-                           context,
-                           MaterialPageRoute(
-                             builder: (context) {
-                               return RequestDetail();
-                             },
-                           ),
-                         );
-                       },
-                       title: Text("Name"),
-                       subtitle: Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: [
-                           Text("20 Gareeb e newaz Avenue, Uttara, Dhaka-1230"),
-                           Text("To"),
-                           Text("Khilkhet Bus Stop"),
-                           Text("Contact No: +8801797609439")
-                         ],
-                       ),
-                     ),
-                   );
-
+                               margin: EdgeInsets.all(10),
+                               decoration: BoxDecoration(
+                                 color: Colors.red.shade100,
+                                 borderRadius: BorderRadius.circular(10)
+                               ),
+                               child: ListTile(
+                                 onTap: (){
+                                   Navigator.push(
+                                     context,
+                                     MaterialPageRoute(
+                                       builder: (context) {
+                                         return RequestDetail();
+                                       },
+                                     ),
+                                   );
+                                 },
+                                 title: Text("${snapshot.child("Name").value.toString()}"),
+                                 subtitle: Column(
+                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                   children: [
+                                     Text("${snapshot.child("PickUp").value.toString()}"),//
+                                     Text("To"),
+                                     Text("${snapshot.child("Destination").value.toString()}"),
+                                     Text("${snapshot.child("Phone_number").value.toString()}")
+                                   ],
+                                 ),
+                               ),
+                             );
 
                  },
 
-
-
                ),
-             ),
+             )
+
+
+
+
+
+
+             // Container(
+             //   child: ListView.builder(
+             //     shrinkWrap: true,
+             //    itemCount: 3,
+             //    // controller: sc,
+             //     itemBuilder: (context,index){
+             //
+             //       return Container(
+             //         margin: EdgeInsets.all(10),
+             //         decoration: BoxDecoration(
+             //           color: Colors.red.shade100,
+             //           borderRadius: BorderRadius.circular(10)
+             //         ),
+             //         child: ListTile(
+             //           onTap: (){
+             //             Navigator.push(
+             //               context,
+             //               MaterialPageRoute(
+             //                 builder: (context) {
+             //                   return RequestDetail();
+             //                 },
+             //               ),
+             //             );
+             //           },
+             //           title: Text("Name"),
+             //           subtitle: Column(
+             //             crossAxisAlignment: CrossAxisAlignment.start,
+             //             children: [
+             //               Text("20 Gareeb e newaz Avenue, Uttara, Dhaka-1230"),
+             //               Text("To"),
+             //               Text("Khilkhet Bus Stop"),
+             //               Text("Contact No: +8801797609439")
+             //             ],
+             //           ),
+             //         ),
+             //
+             //
+             //
+             //
+             //       );
+             //
+             //
+             //     },
+             //
+             //
+             //
+             //   ),
+             // ),
+
+
+
+
+
            ],
          ));
    }
