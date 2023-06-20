@@ -52,7 +52,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
-  Query dbref=FirebaseDatabase.instance.ref("carRequest").child("ride_request");
+  String Vtype="";
+
+
+
+
+
 
 
 
@@ -245,6 +250,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
+
+    if(widget.vehicleType=="Car"){
+
+      Vtype="carRequest";
+
+    }
+    else if(widget.vehicleType=="Bike"){
+
+      Vtype="Bike_Request";
+
+    }
+    else{
+
+      Vtype="Bike_Request";
+    }
+
+
+    Query dbref=FirebaseDatabase.instance.ref("${Vtype}").child("ride_request");
+
+
+
+
     _panelHeightOpen = MediaQuery.of(context).size.height * .99;
 
     Timer.periodic(Duration(seconds: 60), (timer){
@@ -571,138 +599,144 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
      return MediaQuery.removePadding(
          context: context,
          removeTop: true,
-         child: Column(
-           crossAxisAlignment: CrossAxisAlignment.start,
-           children: [
+         child: SingleChildScrollView(
+           child: Padding(
 
-
-
-             Row(
+             padding: const EdgeInsets.fromLTRB(0, 0, 0, 90),
+             child: Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
                children: [
-                 
-                 IconButton(onPressed: (){
-                 panelController.close();
-               }, icon: Icon(Icons.arrow_back)),
-                 
-                 Text("Ride Requests",
 
-                   style: GoogleFonts.openSans(
-                     fontSize: 20,
-                     fontWeight: FontWeight.bold
+
+
+                 Row(
+                   children: [
+
+                     IconButton(onPressed: (){
+                     panelController.close();
+                   }, icon: Icon(Icons.arrow_back)),
+
+                     Text("Ride Requests",
+
+                       style: GoogleFonts.openSans(
+                         fontSize: 20,
+                         fontWeight: FontWeight.bold
+                       ),
+
+                     )
+                   ],
+                 ),
+
+
+
+                 Padding(
+                   padding: const EdgeInsets.all(4.0),
+                   child: FirebaseAnimatedList(
+
+                     physics: ScrollPhysics(),
+                     shrinkWrap: true,
+                     query: FirebaseDatabase.instance.ref("${Vtype}").child("ride_request"),
+                     reverse: true,
+                     itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index) {
+
+
+
+                       return Container(
+                                   margin: EdgeInsets.all(10),
+                                   decoration: BoxDecoration(
+                                     color: Colors.red.shade100,
+                                     borderRadius: BorderRadius.circular(10)
+                                   ),
+                                   child: ListTile(
+                                     onTap: (){
+                                       Navigator.push(
+                                         context,
+                                         MaterialPageRoute(
+                                           builder: (context) {
+                                             return RequestDetail();
+                                           },
+                                         ),
+                                       );
+                                     },
+                                     title: Text("${snapshot.child("Name").value.toString()}"),
+                                     subtitle: Column(
+                                       crossAxisAlignment: CrossAxisAlignment.start,
+                                       children: [
+                                         Text("${snapshot.child("PickUp").value.toString()}"),//
+                                         Text("To"),
+                                         Text("${snapshot.child("Destination").value.toString()}"),
+                                         Text("${snapshot.child("Phone_number").value.toString()}")
+                                       ],
+                                     ),
+                                   ),
+                                 );
+
+                     },
+
                    ),
-
                  )
+
+
+
+
+
+
+                 // Container(
+                 //   child: ListView.builder(
+                 //     shrinkWrap: true,
+                 //    itemCount: 3,
+                 //    // controller: sc,
+                 //     itemBuilder: (context,index){
+                 //
+                 //       return Container(
+                 //         margin: EdgeInsets.all(10),
+                 //         decoration: BoxDecoration(
+                 //           color: Colors.red.shade100,
+                 //           borderRadius: BorderRadius.circular(10)
+                 //         ),
+                 //         child: ListTile(
+                 //           onTap: (){
+                 //             Navigator.push(
+                 //               context,
+                 //               MaterialPageRoute(
+                 //                 builder: (context) {
+                 //                   return RequestDetail();
+                 //                 },
+                 //               ),
+                 //             );
+                 //           },
+                 //           title: Text("Name"),
+                 //           subtitle: Column(
+                 //             crossAxisAlignment: CrossAxisAlignment.start,
+                 //             children: [
+                 //               Text("20 Gareeb e newaz Avenue, Uttara, Dhaka-1230"),
+                 //               Text("To"),
+                 //               Text("Khilkhet Bus Stop"),
+                 //               Text("Contact No: +8801797609439")
+                 //             ],
+                 //           ),
+                 //         ),
+                 //
+                 //
+                 //
+                 //
+                 //       );
+                 //
+                 //
+                 //     },
+                 //
+                 //
+                 //
+                 //   ),
+                 // ),
+
+
+
+
+
                ],
              ),
-
-
-
-             Padding(
-               padding: const EdgeInsets.all(4.0),
-               child: FirebaseAnimatedList(
-
-                 physics: ScrollPhysics(),
-                 shrinkWrap: true,
-                 query: dbref,
-                 reverse: true,
-                 itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index) {
-
-
-
-                   return Container(
-                               margin: EdgeInsets.all(10),
-                               decoration: BoxDecoration(
-                                 color: Colors.red.shade100,
-                                 borderRadius: BorderRadius.circular(10)
-                               ),
-                               child: ListTile(
-                                 onTap: (){
-                                   Navigator.push(
-                                     context,
-                                     MaterialPageRoute(
-                                       builder: (context) {
-                                         return RequestDetail();
-                                       },
-                                     ),
-                                   );
-                                 },
-                                 title: Text("${snapshot.child("Name").value.toString()}"),
-                                 subtitle: Column(
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   children: [
-                                     Text("${snapshot.child("PickUp").value.toString()}"),//
-                                     Text("To"),
-                                     Text("${snapshot.child("Destination").value.toString()}"),
-                                     Text("${snapshot.child("Phone_number").value.toString()}")
-                                   ],
-                                 ),
-                               ),
-                             );
-
-                 },
-
-               ),
-             )
-
-
-
-
-
-
-             // Container(
-             //   child: ListView.builder(
-             //     shrinkWrap: true,
-             //    itemCount: 3,
-             //    // controller: sc,
-             //     itemBuilder: (context,index){
-             //
-             //       return Container(
-             //         margin: EdgeInsets.all(10),
-             //         decoration: BoxDecoration(
-             //           color: Colors.red.shade100,
-             //           borderRadius: BorderRadius.circular(10)
-             //         ),
-             //         child: ListTile(
-             //           onTap: (){
-             //             Navigator.push(
-             //               context,
-             //               MaterialPageRoute(
-             //                 builder: (context) {
-             //                   return RequestDetail();
-             //                 },
-             //               ),
-             //             );
-             //           },
-             //           title: Text("Name"),
-             //           subtitle: Column(
-             //             crossAxisAlignment: CrossAxisAlignment.start,
-             //             children: [
-             //               Text("20 Gareeb e newaz Avenue, Uttara, Dhaka-1230"),
-             //               Text("To"),
-             //               Text("Khilkhet Bus Stop"),
-             //               Text("Contact No: +8801797609439")
-             //             ],
-             //           ),
-             //         ),
-             //
-             //
-             //
-             //
-             //       );
-             //
-             //
-             //     },
-             //
-             //
-             //
-             //   ),
-             // ),
-
-
-
-
-
-           ],
+           ),
          ));
    }
 
