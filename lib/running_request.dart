@@ -5,10 +5,38 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myroad_drive/riding_status.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RunningRequest extends StatelessWidget{
+
+
+  final String Name;
+  final String phoneNumb;
+  final String pickUp;
+  final String destination;
+  final String Estimated_distance;
+  final String Estimated_fare;
+  final String id;
+  final String vehicleType;
+  final String DriverNumb;
+
+  const RunningRequest({super.key, required this.Name, required this.phoneNumb, required this.pickUp, required this.destination, required this.Estimated_distance, required this.Estimated_fare, required this.id, required this.vehicleType, required this.DriverNumb});
+
+  Future<void> makeCall() async {
+    var url = Uri.parse("tel:${phoneNumb}");
+
+    await launchUrl(url);
+
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
+
+    makeCall();
+
+
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
@@ -37,7 +65,7 @@ class RunningRequest extends StatelessWidget{
                     ),
 
                   ),
-                  Text("Contact No: +8801797609439",
+                  Text("Contact No: ${phoneNumb}",
 
                     style: GoogleFonts.openSans(
                         fontSize: 18,
@@ -78,7 +106,7 @@ class RunningRequest extends StatelessWidget{
 
                   SizedBox(height: 15,),
 
-                  Text("Uttara",
+                  Text("${pickUp}",
 
                     style: GoogleFonts.openSans(
                         fontSize: 18,
@@ -104,7 +132,7 @@ class RunningRequest extends StatelessWidget{
                   //   ),
                   //
                   // ),
-                  Text("Khilkhet",
+                  Text("${destination}",
 
                     style: GoogleFonts.openSans(
                         fontSize: 18,
@@ -117,7 +145,7 @@ class RunningRequest extends StatelessWidget{
                     height: 10,
                   ),
 
-                  Text("Estimated 35 minits Journey",
+                  Text("${Estimated_distance}",
 
 
                     style: GoogleFonts.openSans(
@@ -130,7 +158,7 @@ class RunningRequest extends StatelessWidget{
                   ),
 
 
-                  Text("Fear : 450 BDT",
+                  Text("${Estimated_fare}",
 
                     style: GoogleFonts.openSans(
                         fontSize: 18,

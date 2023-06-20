@@ -1,5 +1,6 @@
 
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,9 +9,30 @@ import 'package:sizer/sizer.dart';
 
 class RequestDetail extends StatelessWidget
 {
+
+  final String Name;
+  final String phoneNumb;
+  final String pickUp;
+  final String destination;
+  final String Estimated_distance;
+  final String Estimated_fare;
+  final String id;
+  final String vehicleType;
+  final String DriverNumb;
+
+  const RequestDetail({super.key, required this.Name, required this.phoneNumb, required this.pickUp, required this.destination, required this.Estimated_distance, required this.Estimated_fare, required this.id, required this.vehicleType, required this.DriverNumb});
+
+
+
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
+
+    DatabaseReference rf = FirebaseDatabase.instance.ref("${vehicleType}");
+
+
     return Scaffold(
 
       appBar: AppBar(
@@ -31,7 +53,7 @@ class RequestDetail extends StatelessWidget
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Name",
+                Text("${Name}",
 
                   style: GoogleFonts.openSans(
                     fontSize: 25,
@@ -39,7 +61,7 @@ class RequestDetail extends StatelessWidget
                   ),
 
                 ),
-                Text("Contact No: +8801797609439",
+                Text("Contact No: ${phoneNumb}",
 
                   style: GoogleFonts.openSans(
                     fontSize: 18,
@@ -82,7 +104,7 @@ class RequestDetail extends StatelessWidget
 
                 SizedBox(height: 15,),
 
-                Text("Uttara",
+                Text("${pickUp}",
 
                   style: GoogleFonts.openSans(
                       fontSize: 18,
@@ -108,7 +130,7 @@ class RequestDetail extends StatelessWidget
                 //   ),
                 //
                 // ),
-                Text("Khilkhet",
+                Text("${destination}\n",
 
                   style: GoogleFonts.openSans(
                       fontSize: 18,
@@ -121,7 +143,7 @@ class RequestDetail extends StatelessWidget
                   height: 10,
                 ),
 
-                Text("Estimated Time for Journey : 35 minits",
+                Text("Estimated distance : ${Estimated_distance}",
 
 
                   style: GoogleFonts.openSans(
@@ -164,7 +186,7 @@ class RequestDetail extends StatelessWidget
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("650 BDT",
+                  Text("${Estimated_fare} BDT",
 
                     style: GoogleFonts.openSans(
                         fontSize: 40,
@@ -206,14 +228,49 @@ class RequestDetail extends StatelessWidget
                 onPressed: () async{
 
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return RunningRequest();
-                      },
-                    ),
-                  );
+                  DatabaseReference senderPostRef = rf.child("ride_request").child("${id}");
+                  senderPostRef.update({
+
+                    "pickUpStat":true,
+                    "picupBy":"${DriverNumb}",
+
+                  }).then((value) {
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return RunningRequest(
+
+                            Name: Name,
+                            phoneNumb: phoneNumb,
+                            pickUp: pickUp,
+                            destination: destination,
+                            Estimated_distance: Estimated_distance,
+                            Estimated_fare: Estimated_fare,
+                            id: id,
+                            vehicleType: vehicleType,
+                            DriverNumb: DriverNumb,
+
+                          );
+                        },
+                      ),
+                    );
+
+                  });
+
+
+
+
+
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) {
+                  //       return RunningRequest();
+                  //     },
+                  //   ),
+                  // );
 
 
 
