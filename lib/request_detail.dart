@@ -19,8 +19,10 @@ class RequestDetail extends StatelessWidget
   final String id;
   final String vehicleType;
   final String DriverNumb;
+  final String PickUpCode;
+  final String DropdownCode;
 
-  const RequestDetail({super.key, required this.Name, required this.phoneNumb, required this.pickUp, required this.destination, required this.Estimated_distance, required this.Estimated_fare, required this.id, required this.vehicleType, required this.DriverNumb});
+  const RequestDetail({super.key, required this.Name, required this.phoneNumb, required this.pickUp, required this.destination, required this.Estimated_distance, required this.Estimated_fare, required this.id, required this.vehicleType, required this.DriverNumb, required this.PickUpCode, required this.DropdownCode});
 
 
 
@@ -251,6 +253,8 @@ class RequestDetail extends StatelessWidget
                             id: id,
                             vehicleType: vehicleType,
                             DriverNumb: DriverNumb,
+                            PickUpCode: PickUpCode,
+                            Dropdowncode: DropdownCode,
 
                           );
                         },

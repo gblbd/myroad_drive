@@ -19,8 +19,13 @@ class RunningRequest extends StatelessWidget{
   final String id;
   final String vehicleType;
   final String DriverNumb;
+  final String PickUpCode;
+  final String Dropdowncode;
 
-  const RunningRequest({super.key, required this.Name, required this.phoneNumb, required this.pickUp, required this.destination, required this.Estimated_distance, required this.Estimated_fare, required this.id, required this.vehicleType, required this.DriverNumb});
+
+  TextEditingController Pickupcode_controller=TextEditingController();
+
+   RunningRequest({super.key, required this.Name, required this.phoneNumb, required this.pickUp, required this.destination, required this.Estimated_distance, required this.Estimated_fare, required this.id, required this.vehicleType, required this.DriverNumb, required this.PickUpCode, required this.Dropdowncode});
 
   Future<void> makeCall() async {
     var url = Uri.parse("tel:${phoneNumb}");
@@ -196,19 +201,33 @@ class RunningRequest extends StatelessWidget{
                 child: TextFormField(
 
 
-                  //controller: _controller,
+                  controller: Pickupcode_controller,
                   //maxLength: 11,
                   decoration: InputDecoration(
                     suffixIcon: InkWell(
                       onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return RidingStatus();
-                            },
-                          ),
-                        );
+
+                        if(PickUpCode==Pickupcode_controller.text){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return RidingStatus(
+                                  vahicleType: vehicleType,
+                                  Id: id,
+                                  droppingCode: Dropdowncode,
+
+
+                                );
+                              },
+                            ),
+                          );
+                        }
+
+
+
+
+
                       },
                       child: Icon(
                         Icons.arrow_forward_ios
