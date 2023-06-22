@@ -21,8 +21,14 @@ class RequestDetail extends StatelessWidget
   final String DriverNumb;
   final String PickUpCode;
   final String DropdownCode;
+  final String drivingLicense;
+  final String driversName;
+  final String Vehiclereg;
 
-   RequestDetail({super.key, required this.Name, required this.phoneNumb, required this.pickUp, required this.destination, required this.Estimated_distance, required this.Estimated_fare, required this.id, required this.vehicleType, required this.DriverNumb, required this.PickUpCode, required this.DropdownCode});
+   RequestDetail({super.key, required this.Name, required this.phoneNumb, required this.pickUp, required this.destination, required this.Estimated_distance, required this.Estimated_fare, required this.id, required this.vehicleType, required this.DriverNumb, required this.PickUpCode, required this.DropdownCode, required this.drivingLicense, required this.driversName, required this.Vehiclereg});
+
+
+
 
 
  
@@ -242,6 +248,9 @@ class RequestDetail extends StatelessWidget
 
                     "pickUpStat":true,
                     "picupBy":"${DriverNumb}",
+                    "vehicle_reg":"${Vehiclereg}",
+                    "DriverName":"${driversName}",
+                    "Driving_licese":"${drivingLicense}"
 
                   }).then((value) {
 
@@ -298,5 +307,8 @@ class RequestDetail extends StatelessWidget
 
     );
   }
+
+
+
 
 }

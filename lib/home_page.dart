@@ -665,6 +665,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                DriverNumb: "${widget.phnNumber}",
                                                PickUpCode: "${snapshot.child("pickupCode").value.toString()}",
                                                DropdownCode: "${snapshot.child("droppingCode").value.toString()}",
+                                               drivingLicense: '${widget.licenceNum}',
+                                               driversName: '${widget.full_name}',
+                                               Vehiclereg: '${widget.vehicleRegNum}',
 
                                              );
                                            },
