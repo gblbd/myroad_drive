@@ -22,9 +22,10 @@ class RequestDetail extends StatelessWidget
   final String PickUpCode;
   final String DropdownCode;
 
-  const RequestDetail({super.key, required this.Name, required this.phoneNumb, required this.pickUp, required this.destination, required this.Estimated_distance, required this.Estimated_fare, required this.id, required this.vehicleType, required this.DriverNumb, required this.PickUpCode, required this.DropdownCode});
+   RequestDetail({super.key, required this.Name, required this.phoneNumb, required this.pickUp, required this.destination, required this.Estimated_distance, required this.Estimated_fare, required this.id, required this.vehicleType, required this.DriverNumb, required this.PickUpCode, required this.DropdownCode});
 
 
+ 
 
 
   @override
@@ -33,6 +34,8 @@ class RequestDetail extends StatelessWidget
 
 
     DatabaseReference rf = FirebaseDatabase.instance.ref("${vehicleType}");
+
+    double fare=double.parse("${Estimated_fare}");
 
 
     return Scaffold(
@@ -185,19 +188,23 @@ class RequestDetail extends StatelessWidget
 
               ),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("${Estimated_fare} BDT",
+              SingleChildScrollView(
+                scrollDirection:Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
 
-                    style: GoogleFonts.openSans(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey.shade800
+                    Text("${fare.toStringAsFixed(3)} BDT",
+
+                      style: GoogleFonts.openSans(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey.shade800
+                      ),
+
                     ),
-
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           )),
