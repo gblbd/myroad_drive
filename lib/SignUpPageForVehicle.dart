@@ -1,9 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 import 'vehicle_reg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:path/path.dart' as path;
 
 class SignUpPageForVehicle extends StatelessWidget {
-  const SignUpPageForVehicle({Key? key}) : super(key: key);
+   SignUpPageForVehicle({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

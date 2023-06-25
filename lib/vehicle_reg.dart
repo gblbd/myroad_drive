@@ -6,6 +6,12 @@ import 'package:sizer/sizer.dart';
 
 import 'LoginScreen.dart';
 import 'WelcomeScreen.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:path/path.dart' as path;
+import 'package:flutter/foundation.dart';
+import 'dart:io';
 
 
 class SignUpForCar extends StatefulWidget {
@@ -99,6 +105,46 @@ class _SignUpForCarState extends State<SignUpForCar> {
     phoneNumbController.dispose();
     super.dispose();
   }
+///////////////////////////////////////////////////////////////////
+  FirebaseStorage storage = FirebaseStorage.instance;
+
+  //upload to firebase storage picture
+
+  Future<void> _upload(String inputSource) async {
+    final picker = ImagePicker();
+    XFile? pickedImage;
+    try {
+      pickedImage = await picker.pickImage(
+          source: ImageSource.gallery,
+          maxWidth: 1920);
+
+      File imageFile = File(pickedImage!.path);
+
+      try {
+        final String fileName = DateTime.now().millisecondsSinceEpoch.toString() + '.jpg';
+        // Uploading the selected image with some custom meta data
+        await storage.ref().child('Images').child('/profile_pic/$fileName').putFile(
+            imageFile,
+            SettableMetadata(
+                contentType: 'image/jpeg',
+                customMetadata: {'picked-image-path': imageFile.path}));
+
+
+      } on FirebaseException catch (error) {
+        if (kDebugMode) {
+          print(error);
+        }
+      }
+    } catch (err) {
+      if (kDebugMode) {
+        print(err);
+      }
+    }
+  }
+
+//////////////////////////////////////////////////////////////////////////////////
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +187,10 @@ class _SignUpForCarState extends State<SignUpForCar> {
                   backgroundColor: Colors.red.shade50,
                     radius: 60,
                     child: GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+
+                        _upload('gallery');
+                      },
                         child: Icon(Icons.camera_alt_outlined,color: Colors.red,size: 50,)),
                 ),
               ),

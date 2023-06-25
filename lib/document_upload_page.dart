@@ -204,12 +204,12 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
      }
 
      firebase_storage.UploadTask uploadTask;
-
+     final String fileName = DateTime.now().millisecondsSinceEpoch.toString() + '.pdf';
      // Create a Reference to the file
      firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
          .ref()
          .child('Document')
-         .child('/some-file.pdf');
+         .child('/some-file/$fileName');
 
      final metadata = firebase_storage.SettableMetadata(
          contentType: 'file/pdf',

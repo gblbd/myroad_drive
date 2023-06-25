@@ -1,15 +1,20 @@
 
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myroad_drive/edit_profile.dart';
 import 'package:sizer/sizer.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:path/path.dart' as path;
 
 
-
-class ProfilePage extends StatelessWidget{
-
+class ProfilePage extends StatefulWidget {
   final String DfullName;
   final String DphoneNum;
   final String Daddress;
@@ -20,8 +25,51 @@ class ProfilePage extends StatelessWidget{
   final String DvehicleModel;
   final String DvehicleRegNum;
   final String DdrivingLicenceNum;
-
+  // const ProfilePage({super.key});
   const ProfilePage({Key? key, required this.DfullName, required this.DphoneNum, required this.Daddress, required this.DdateOfBirth, required this.Dgender, required this.DnidNum, required this.DvehicleType, required this.DvehicleModel, required this.DvehicleRegNum, required this.DdrivingLicenceNum}) : super(key: key);
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  FirebaseStorage storage = FirebaseStorage.instance;
+
+  //upload to firebase storage picture
+
+  Future<void> _upload(String inputSource) async {
+    final picker = ImagePicker();
+    XFile? pickedImage;
+    try {
+      pickedImage = await picker.pickImage(
+          source: ImageSource.gallery,
+          maxWidth: 1920);
+
+      //final String fileName = path.basename(pickedImage!.path);
+      File imageFile = File(pickedImage!.path);
+
+      try {
+        // Uploading the selected image with some custom meta data
+        await storage.ref().child('Images').child('/profile_pic.jpg').putFile(
+            imageFile,
+            SettableMetadata(
+                contentType: 'image/jpeg',
+                customMetadata: {'picked-image-path': imageFile.path}));
+
+        // Refresh the UI
+        setState(() {});
+      } on FirebaseException catch (error) {
+        if (kDebugMode) {
+          print(error);
+        }
+      }
+    } catch (err) {
+      if (kDebugMode) {
+        print(err);
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +81,15 @@ class ProfilePage extends StatelessWidget{
       ),
       body: SingleChildScrollView(
         child: Container(
-          
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // TextButton(
+              //     onPressed: (){
+              //       _upload('gallery');
+              //     },
+              //     child:  Text("Upload Image", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 30),
                 width: 100.w,
@@ -55,7 +108,7 @@ class ProfilePage extends StatelessWidget{
                       child: Icon(Icons.person,color: Colors.blueGrey,),
                     ),
                   ),
-                  title: Text("Name: ${DfullName}",
+                  title: Text("Name: ${widget.DfullName}",
 
                     style: GoogleFonts.openSans(
                       fontSize: 18,
@@ -66,7 +119,7 @@ class ProfilePage extends StatelessWidget{
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Phone Number: ${DphoneNum}"),
+                      Text("Phone Number: ${widget.DphoneNum}"),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -108,7 +161,7 @@ class ProfilePage extends StatelessWidget{
                                 fontSize: 16,fontWeight: FontWeight.w600
                             ),
                           ),
-                          Text("${Daddress}",
+                          Text("${widget.Daddress}",
                             style: GoogleFonts.openSans(
                                 fontSize: 14,fontWeight: FontWeight.w400
                             ),
@@ -131,7 +184,7 @@ class ProfilePage extends StatelessWidget{
                                     fontSize: 16,fontWeight: FontWeight.w600
                                 ),
                               ),
-                              Text("${DdateOfBirth}",
+                              Text("${widget.DdateOfBirth}",
                                 style: GoogleFonts.openSans(
                                     fontSize: 14,fontWeight: FontWeight.w400
                                 ),
@@ -147,7 +200,7 @@ class ProfilePage extends StatelessWidget{
                                     fontSize: 16,fontWeight: FontWeight.w600
                                 ),
                               ),
-                              Text("${Dgender}",
+                              Text("${widget.Dgender}",
                                 style: GoogleFonts.openSans(
                                     fontSize: 14,fontWeight: FontWeight.w400
                                 ),
@@ -170,7 +223,7 @@ class ProfilePage extends StatelessWidget{
                                 fontSize: 16,fontWeight: FontWeight.w600
                             ),
                           ),
-                          Text("${DnidNum}",
+                          Text("${widget.DnidNum}",
                             style: GoogleFonts.openSans(
                                 fontSize: 14,fontWeight: FontWeight.w400
                             ),
@@ -194,7 +247,7 @@ class ProfilePage extends StatelessWidget{
                                     fontSize: 16,fontWeight: FontWeight.w600
                                 ),
                               ),
-                              Text("${DvehicleType}",
+                              Text("${widget.DvehicleType}",
                                 style: GoogleFonts.openSans(
                                     fontSize: 14,fontWeight: FontWeight.w400
                                 ),
@@ -210,7 +263,7 @@ class ProfilePage extends StatelessWidget{
                                     fontSize: 16,fontWeight: FontWeight.w600
                                 ),
                               ),
-                              Text("${DvehicleModel}",
+                              Text("${widget.DvehicleModel}",
                                 style: GoogleFonts.openSans(
                                     fontSize: 14,fontWeight: FontWeight.w400
                                 ),
@@ -232,7 +285,7 @@ class ProfilePage extends StatelessWidget{
                                 fontSize: 16,fontWeight: FontWeight.w600
                             ),
                           ),
-                          Text("${DvehicleRegNum}",
+                          Text("${widget.DvehicleRegNum}",
                             style: GoogleFonts.openSans(
                                 fontSize: 14,fontWeight: FontWeight.w400
                             ),
@@ -253,7 +306,7 @@ class ProfilePage extends StatelessWidget{
                                 fontSize: 16,fontWeight: FontWeight.w600
                             ),
                           ),
-                          Text("${DdrivingLicenceNum}",
+                          Text("${widget.DdrivingLicenceNum}",
                             style: GoogleFonts.openSans(
                                 fontSize: 14,fontWeight: FontWeight.w400
                             ),
@@ -337,5 +390,5 @@ class ProfilePage extends StatelessWidget{
 
     );
   }
-  
+
 }
