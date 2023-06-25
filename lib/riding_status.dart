@@ -5,6 +5,7 @@
 
 import 'dart:async';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -14,7 +15,12 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class RidingStatus extends StatefulWidget {
 
-  const RidingStatus({Key? key}) : super(key: key);
+
+  final String Id;
+  final String droppingCode;
+  final String vahicleType;
+
+  const RidingStatus({Key? key, required this.Id, required this.droppingCode, required this.vahicleType}) : super(key: key);
 
   @override
   State<RidingStatus> createState() => _HomePageState();
@@ -32,6 +38,8 @@ class _HomePageState extends State<RidingStatus> with TickerProviderStateMixin {
   bool _isExpand=false;
   bool _invisible = true;
   bool expand = true;
+
+  TextEditingController Dropdown_controller=TextEditingController();
 
 
 
@@ -168,6 +176,8 @@ class _HomePageState extends State<RidingStatus> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     _panelHeightOpen = MediaQuery.of(context).size.height * .99;
+
+    DatabaseReference rf = FirebaseDatabase.instance.ref("${widget.vahicleType}");
 
     Show_marker();
 
@@ -318,11 +328,26 @@ class _HomePageState extends State<RidingStatus> with TickerProviderStateMixin {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 8,left: 10),
                       child: TextFormField(
-                        //controller: _controller,
+                        controller: Dropdown_controller,
                         //maxLength: 11,
                         decoration: InputDecoration(
                           suffixIcon: InkWell(
                             onTap: (){
+
+                              if(widget.droppingCode==Dropdown_controller.text){
+
+                                    DatabaseReference senderPostRef = FirebaseDatabase.instance.ref("${widget.vahicleType}").child("ride_request").child("${widget.Id}");
+                                    senderPostRef.remove().then((value) {
+
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+
+                                    });
+
+                              }
+
+
 
                             },
                               child: Icon(Icons.arrow_forward_ios)),
@@ -348,6 +373,9 @@ class _HomePageState extends State<RidingStatus> with TickerProviderStateMixin {
           ],
         ));
   }
+
+
+
 
 
 

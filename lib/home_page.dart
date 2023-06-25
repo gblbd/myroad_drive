@@ -5,6 +5,8 @@ import 'dart:async';
 
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -50,7 +52,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
-   late AnimationController _animationController;
+  String Vtype="";
+
+
+
+
+
+
+
+
+  FirebaseDatabase database = FirebaseDatabase.instance;
+  DatabaseReference ref = FirebaseDatabase.instance.ref("Driver_profile");
+
+
+
+
+
+  late AnimationController _animationController;
    late Animation<Offset> _animation;
 
    double poslat=0.00;
@@ -189,10 +207,24 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
        poslong=position.longitude;
 
        currentpos=LatLng(position.latitude, position.longitude);
+       uploadPos(poslat, poslong);
 
      });
 
    }
+
+
+
+   Future<void> uploadPos(double latitude, double longitude) async {
+
+     await ref.child("${widget.phnNumber}").child("Dprofile").update({
+
+       "Latitude":latitude,
+       "Longitude":longitude,
+
+     });
+   }
+
 
 
 
@@ -218,9 +250,55 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
+
+    if(widget.vehicleType=="Car"){
+
+      Vtype="carRequest";
+
+    }
+    else if(widget.vehicleType=="Bike"){
+
+      Vtype="Bike_Request";
+
+    }
+    else{
+
+      Vtype="Bike_Request";
+    }
+
+
+    Query dbref=FirebaseDatabase.instance.ref("${Vtype}").child("ride_request");
+
+
+
+
     _panelHeightOpen = MediaQuery.of(context).size.height * .99;
 
+    // Timer.periodic(Duration(seconds: 60), (timer){
+    //
+    //   Navigator.pushReplacement(
+    //       context,
+    //       MaterialPageRoute(
+    //           builder: (BuildContext context) => HomePage(SearchDestination: "",
+    //               phnNumber: widget.phnNumber,
+    //               password: widget.password, full_name: widget.full_name,
+    //               address: widget.address, gender: widget.gender,
+    //               vehicleType: widget.vehicleType, vehicleModel: widget.vehicleModel,
+    //               vehicleRegNum: widget.vehicleRegNum, licenceNum: widget.licenceNum,
+    //               date_of_birth: widget.date_of_birth, nid: widget.nid,
+    //               nid_number: widget.nid_number)));
+    //
+    //
+    // },);
 
+
+    // Timer.periodic(Duration(seconds: 5), (timer){
+    //
+    //   getPosition();
+    //
+    //
+    // },);
 
     //Position position=getUserCurrentLocation() as Position;
 
@@ -242,7 +320,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
                     GoogleMap(
                       initialCameraPosition: CameraPosition(
-                          target: currentpos,//LatLng(currentLocation.latitude!,currentLocation.longitude!),
+                          target: LatLng(90.3840626, 90.3840626),//LatLng(currentLocation.latitude!,currentLocation.longitude!),
                           zoom: 14.5),
                       markers: {
                         Marker(
@@ -521,78 +599,112 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
      return MediaQuery.removePadding(
          context: context,
          removeTop: true,
-         child: Column(
-           crossAxisAlignment: CrossAxisAlignment.start,
-           children: [
+         child: SingleChildScrollView(
+           child: Padding(
 
-
-
-             Row(
+             padding: const EdgeInsets.fromLTRB(0, 0, 0, 90),
+             child: Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
                children: [
-                 
-                 IconButton(onPressed: (){
-                 panelController.close();
-               }, icon: Icon(Icons.arrow_back)),
-                 
-                 Text("Ride Requests",
 
-                   style: GoogleFonts.openSans(
-                     fontSize: 20,
-                     fontWeight: FontWeight.bold
+
+
+                 Row(
+                   children: [
+
+                     IconButton(onPressed: (){
+                     panelController.close();
+                   }, icon: Icon(Icons.arrow_back)),
+
+                     Text("Ride Requests",
+
+                       style: GoogleFonts.openSans(
+                         fontSize: 20,
+                         fontWeight: FontWeight.bold
+                       ),
+
+                     )
+                   ],
+                 ),
+
+
+
+                 Padding(
+                   padding: const EdgeInsets.all(4.0),
+                   child: FirebaseAnimatedList(
+
+                     physics: ScrollPhysics(),
+                     shrinkWrap: true,
+                     query: FirebaseDatabase.instance.ref("${Vtype}").child("ride_request"),
+                     reverse: true,
+                     itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index) {
+
+
+
+                       return Container(
+                                   margin: EdgeInsets.all(10),
+                                   decoration: BoxDecoration(
+                                     color: Colors.red.shade100,
+                                     borderRadius: BorderRadius.circular(10)
+                                   ),
+                                   child: ListTile(
+                                     onTap: (){
+                                       Navigator.push(
+                                         context,
+                                         MaterialPageRoute(
+                                           builder: (context) {
+                                             return RequestDetail(
+                                               Name: "${snapshot.child("Name").value.toString()}",
+                                               phoneNumb: "${snapshot.child("Phone_number").value.toString()}",
+                                               destination: "${snapshot.child("Destination").value.toString()}",
+                                               pickUp: "${snapshot.child("PickUp").value.toString()}",
+                                               Estimated_distance: "${snapshot.child("Distance").value.toString()}",
+                                               Estimated_fare: "${snapshot.child("Fare").value.toString()}",
+                                               id: "${snapshot.key}",
+                                               vehicleType: "${Vtype}",
+                                               DriverNumb: "${widget.phnNumber}",
+                                               PickUpCode: "${snapshot.child("pickupCode").value.toString()}",
+                                               DropdownCode: "${snapshot.child("droppingCode").value.toString()}",
+                                               drivingLicense: '${widget.licenceNum}',
+                                               driversName: '${widget.full_name}',
+                                               Vehiclereg: '${widget.vehicleRegNum}',
+
+                                             );
+                                           },
+                                         ),
+                                       );
+                                     },
+                                     title: Text("${snapshot.child("Name").value.toString()}"),
+                                     subtitle: Column(
+                                       crossAxisAlignment: CrossAxisAlignment.start,
+                                       children: [
+                                         Text("${snapshot.child("PickUp").value.toString()}"),//
+                                         Text("To"),
+                                         Text("${snapshot.child("Destination").value.toString()}"),
+                                         Text("${snapshot.child("Phone_number").value.toString()}")
+                                       ],
+                                     ),
+                                   ),
+                                 );
+
+                     },
+
                    ),
-
                  )
+
+
+
+
+
+
+
+
+
+
+
                ],
              ),
-
-
-
-
-             Container(
-               child: ListView.builder(
-                 shrinkWrap: true,
-                itemCount: 3,
-                // controller: sc,
-                 itemBuilder: (context,index){
-
-                   return Container(
-                     margin: EdgeInsets.all(10),
-                     decoration: BoxDecoration(
-                       color: Colors.red.shade100,
-                       borderRadius: BorderRadius.circular(10)
-                     ),
-                     child: ListTile(
-                       onTap: (){
-                         Navigator.push(
-                           context,
-                           MaterialPageRoute(
-                             builder: (context) {
-                               return RequestDetail();
-                             },
-                           ),
-                         );
-                       },
-                       title: Text("Name"),
-                       subtitle: Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: [
-                           Text("20 Gareeb e newaz Avenue, Uttara, Dhaka-1230"),
-                           Text("To"),
-                           Text("Khilkhet Bus Stop"),
-                           Text("Contact No: +8801797609439")
-                         ],
-                       ),
-                     ),
-                   );
-
-
-                 },
-
-
-
-               ),
-             ),
-           ],
+           ),
          ));
    }
 
