@@ -512,7 +512,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ListTile(
 
                 onTap: (){
-                  Share.share('check out our app https://play.google.com/store/apps/details?id=com.nalamgroup.driver');
+                  Share.share('check out our app https://play.google.com/store/apps/details?id=com.myroaddriver.app');
                 },
                 leading: Icon(Icons.share),
                 title: Text("Share this app"),

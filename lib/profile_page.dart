@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:path/path.dart' as path;
+import 'package:url_launcher/url_launcher.dart';
 
 
 class ProfilePage extends StatefulWidget {
@@ -322,6 +323,27 @@ class _ProfilePageState extends State<ProfilePage> {
 
                         onTap: (){},
                         title: Text("Change password",
+
+                          style: GoogleFonts.openSans(
+                              fontSize: 20
+                          ),
+
+                        ),
+                      ),
+
+                      Divider(
+                        thickness: 1,
+                      ),
+
+                      ListTile(
+
+                        onTap: () async {
+
+                          await launchUrl(Uri.parse('https://gorgeousbangladeshltd.netlify.app/dirverPrivacyPolicy'));
+
+
+                        },
+                        title: Text("Privacy Policy",
 
                           style: GoogleFonts.openSans(
                               fontSize: 20
