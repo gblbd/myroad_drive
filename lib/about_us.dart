@@ -4,6 +4,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class AboutUS extends StatelessWidget{
@@ -13,26 +14,6 @@ class AboutUS extends StatelessWidget{
 
 
 
-  WebViewController controller = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.unrestricted)
-    ..setBackgroundColor(const Color(0x00000000))
-    ..setNavigationDelegate(
-      NavigationDelegate(
-        onProgress: (int progress) {
-          // Update loading bar.
-        },
-        onPageStarted: (String url) {},
-        onPageFinished: (String url) {},
-        onWebResourceError: (WebResourceError error) {},
-        onNavigationRequest: (NavigationRequest request) {
-          if (request.url.startsWith('https://www.youtube.com/')) {
-            return NavigationDecision.prevent;
-          }
-          return NavigationDecision.navigate;
-        },
-      ),
-    )
-    ..loadRequest(Uri.parse('https://myroad.us'));
 
 
 
@@ -43,11 +24,58 @@ class AboutUS extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(
+        title: Text("About us"),
+      ),
       body:SingleChildScrollView(
         child: Container(
+          padding: EdgeInsets.all(10),
           child: Column(
             children: [
-              WebViewWidget(controller: controller),
+
+              Text("My Road : ",
+
+                style: GoogleFonts.openSans(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                ),
+
+
+              ),
+              Text("My Road is an innovative new entrant into the tech market in Bangladesh,"
+                  " Operated and owned by Bangladesh for Bangladeshi people, "
+                  "My Road brings local creativity and insights to get improving the experience "
+                  "of Air Tickiting,Hotel Booking,Foods,Couriers, passengers and drivers."
+                  " My Road provides you in best class solution.",
+
+                style: GoogleFonts.openSans(
+                  fontSize: 16,
+                  //fontWeight: FontWeight.bold
+                ),
+
+              ),
+              Text("User Data Safty :",
+
+                style: GoogleFonts.openSans(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                ),
+
+              ),
+              Text("\nMy Road Drive never use, analyze or share user data. It collect document file for the sucurity perpose of the users."
+                  " for this, we need storage permission"
+                  "The data transfered through a encrypted channel with firebase security ",
+
+                style: GoogleFonts.openSans(
+                  fontSize: 16,
+                  //fontWeight: FontWeight.bold
+                ),
+
+              ),
+              SizedBox(height: 25,),
+
+
+
             ],
           ),
         ),

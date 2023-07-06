@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'LoginScreen.dart';
+//import 'LoginScreen.dart';
 import 'WelcomeScreen.dart';
 
 //import 'LoginWithPhoneNum.dart';
@@ -23,6 +23,8 @@ class PermissionDetail extends StatelessWidget{
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+
               Text("Location : ",
 
                 style: GoogleFonts.openSans(
@@ -37,8 +39,13 @@ class PermissionDetail extends StatelessWidget{
                   " The location data collection doesn't run or work in the background. "
                   "It doesn't collect or share data when the app will remain idle. "
                   "This location data is used for the feature of finding user's location."
-                  " My road drive never collect user location data in the background"
-                  "this loction data is used in : \n # ride sharing "
+                  " My road drive collect location for finding nearest passengers. My road drive collect location data ,"
+                  " calulate the distance from user to passenger and show the nearest passengers list"
+                  ". If My Road Drive collect background location data, My Road Drive"
+                  " want to ensure that the data is safe and secure and data will never collected without user's permission"
+                  "This app collects"
+                  " location data to enable User's realtime location finding feature, nearest customer finding feature and  even when the app"
+                  " is closed or not in use. This data will never use to provide ads/support advertising/support ads  "
                   "this app never provide any ads/support or advertising/support ads.",
 
                 style: GoogleFonts.openSans(
@@ -47,8 +54,6 @@ class PermissionDetail extends StatelessWidget{
                 ),
 
               ),
-
-
               Text("User Data Safty :",
 
                 style: GoogleFonts.openSans(
@@ -57,9 +62,7 @@ class PermissionDetail extends StatelessWidget{
                 ),
 
               ),
-
-              Text("\nMy road drive never use, analyze or share user data. It collect document file for the sucurity perpose of the users."
-                  " for this, we need storage permission"
+              Text("\nMy road never use, analyze or share user data. "
                   "The data transfered through a encrypted channel with firebase security \n\n\n\n If you are agree with us please press the agree button and enjoy the best experience",
 
                 style: GoogleFonts.openSans(
@@ -68,10 +71,7 @@ class PermissionDetail extends StatelessWidget{
                 ),
 
               ),
-
               SizedBox(height: 25,),
-
-
               Center(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 16,right: 16),
