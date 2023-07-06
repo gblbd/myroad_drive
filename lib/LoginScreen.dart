@@ -24,6 +24,15 @@ class _LoginScreenState extends State<LoginScreen> {
   FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference ref = FirebaseDatabase.instance.ref("Driver_profile");
 ////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+  bool _isObscure=true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,11 +81,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.only(right: 8,left: 10),
                   child: TextField(
                     controller: _Passcontroller,
+                    obscureText: _isObscure,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       labelText: "Enter Your Password",
-                      labelStyle: TextStyle(color: Colors.grey)
+                      labelStyle: TextStyle(color: Colors.grey),
+                      suffixIcon: IconButton(
+                        icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off),
+                        onPressed: (){
+                          setState(() {
+                            _isObscure= !_isObscure;
+                          });
+                        },
+                      ),
                     ),
+
                     cursorColor: Colors.red,
 
                   ),
