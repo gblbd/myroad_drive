@@ -321,7 +321,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     GoogleMap(
                       initialCameraPosition: CameraPosition(
                           target: LatLng(90.3840626, 90.3840626),//LatLng(currentLocation.latitude!,currentLocation.longitude!),
-                          zoom: 14.5),
+                          zoom: 0.0),
                       markers: {
                         Marker(
                             markerId: MarkerId("Source"),

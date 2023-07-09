@@ -5,9 +5,29 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myroad_drive/home_page.dart';
 import 'package:myroad_drive/vehicle_reg.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+
+
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 import 'CreateAccount.dart';
+
+enum PermissionGroup {
+
+
+  /// Android: Fine and Coarse Location
+  /// iOS: CoreLocation - Always
+  locationAlways,
+
+  /// Android: Fine and Coarse Location
+  /// iOS: CoreLocation - WhenInUse
+  locationWhenInUse
+}
+
+
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -29,12 +49,31 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
 
+  ///////////////////////////////////////////////////////
+
+
+
+
+
 
 
   bool _isObscure=true;
 
   @override
   Widget build(BuildContext context) {
+
+
+
+
+    Perm();
+
+
+
+
+
+
+
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -289,6 +328,33 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
     //await prefs.setString('action', 'Start');
+
+
+
+  }
+
+
+  Future<void> Perm() async {
+
+
+
+
+
+// You can request multiple permissions at once.
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.location,
+      Permission.storage,
+    ].request();
+    print(statuses[Permission.location]);
+
+
+    // if (await Permission.contacts.request().isGranted) {
+    // // Either the permission was already granted before or the user just granted it.
+    // }
+
+// You can request multiple permissions at once.
+
+   // print(statuses[Permission.location]);
 
 
 
