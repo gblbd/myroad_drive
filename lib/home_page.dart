@@ -17,6 +17,7 @@ import 'package:myroad_drive/profile_page.dart';
 import 'package:myroad_drive/request_detail.dart';
 import 'package:myroad_drive/settings.dart';
 import 'package:myroad_drive/support_page.dart';
+import 'package:myroad_drive/tour_request.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -464,6 +465,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           DvehicleModel: widget.vehicleModel,
                           DvehicleRegNum: widget.vehicleRegNum,
                           DdrivingLicenceNum: widget.licenceNum,);
+                      },
+                    ),
+                  );
+
+                },
+              ),
+
+              ListTile(
+                leading: Image.asset("assets/destination.png",
+                  width: 30,
+                  height: 30,
+                ),//Icon(Icons.trave, size: 30,),
+                title: Text("Tourist Ride"),
+                onTap: (){
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return TourRequest();
                       },
                     ),
                   );
