@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
    double poslat=0.00;
    double poslong=0.00;
 
-   LatLng currentpos=LatLng(0.00, 0.00);
+   LatLng currentpos=LatLng(0.00,0.00);
 
   Completer<GoogleMapController> _controller = Completer();
   PanelController panelController = PanelController();
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
 
   CameraPosition _kGoogle = CameraPosition(
-    target: LatLng(23.8103, 90.4125),
+    target: LatLng( 90.4125,23.8103),
     zoom: 10,
   );
 
@@ -303,9 +303,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     //Position position=getUserCurrentLocation() as Position;
 
-    return
-
-      Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text("Home"),
         ),
@@ -320,9 +318,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
 
                     GoogleMap(
+
                       initialCameraPosition: CameraPosition(
-                          target: LatLng(90.3840626, 90.3840626),//LatLng(currentLocation.latitude!,currentLocation.longitude!),
-                          zoom: 0.0),
+                          target: LatLng(90.3563, 23.6850),//LatLng(currentLocation.latitude!,currentLocation.longitude!),
+                          zoom: 14.0),
+                      myLocationEnabled: true,
+                      myLocationButtonEnabled: true,
+                      mapType: MapType.normal,
+                      trafficEnabled: true,
+                      buildingsEnabled: false,
                       markers: {
                         Marker(
                             markerId: MarkerId("Source"),
@@ -336,6 +340,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         //     position: LatLng(37.3342, -122.06672)
                         // )
                       },
+
 
                     ),
 
@@ -455,6 +460,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     MaterialPageRoute(
                       builder: (context) {
                         return ProfilePage(
+
                           DfullName: widget.full_name,
                           DphoneNum: widget.phnNumber,
                           Daddress: widget.address,
